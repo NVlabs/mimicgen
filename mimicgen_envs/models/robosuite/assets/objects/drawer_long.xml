@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="cabinet">
+  <worldbody>
+      <body>
+        <body name="object" pos="0.3 0 0">
+      <body name="base" pos="0 0 0" quat="1 0 0 0">
+        
+            <!-- These geoms are the left and right walls of the drawer. -->
+
+            <!-- shifted and made longer (-0.063) -->
+            <geom name="drawer_left_wall" material="MatRedWood" pos="-0.11 -0.0315 0.065" size="0.008 0.1435 0.064" group="0" type="box" mass="0.05"/>
+            <geom name="drawer_right_wall" material="MatRedWood" pos="0.11 -0.0315 0.065" size="0.008 0.1435 0.064" group="0" type="box" mass="0.05"/>
+
+            <!-- original -->
+            <!-- <geom material="MatRedWood" pos="-0.11 0 0.065" size="0.008 0.112 0.064" group="0" type="box" mass=".05"/> -->
+            <!-- <geom material="MatRedWood" pos="0.11 0 0.065" size="0.008 0.112 0.064" group="0" type="box" mass=".05"/> -->
+
+            <!-- Back wall of drawer -->
+            <geom name="drawer_back_wall" material="MatRedWood" pos="0 0.092 0.062" size="0.102 0.008 0.064" group="0" type="box" mass="0.05"/>
+
+            <!-- Bottom surface of drawer -->
+
+            <!-- we want to shift in y by -0.063 total, while also keeping the bottom fully covered, so we
+                 add (0.063 / 2) to half-size and also shift in y position by (0.063 / 2) -->
+            <geom name="drawer_bottom_surface" material="MatRedWood" pos="0 -0.0395 0.004" size="0.102 0.1335 0.014" group="0" type="box" mass="0.05"/>
+
+            <!-- original -->
+            <!-- <geom material="MatRedWood" pos="0 -0.008 0.004" size="0.102 0.102 0.014" group="0" type="box" mass=".05"/> -->
+
+            <!-- Top surface of drawer -->
+
+            <!-- we want to shift in y by -0.063 total, while also keeping the top fully covered, so we
+                 add (0.063 / 2) to half-size and also shift in y position by (0.063 / 2) -->
+            <geom name="drawer_top_surface" material="MatRedWood" pos="0 -0.0215 0.121" size="0.102 0.1335 0.008" group="0" type="box" mass="0.05"/>
+            
+            <!-- original -->
+            <!-- <geom material="MatRedWood" pos="0 0.01 0.121" size="0.102 0.102 0.008" group="0" type="box" mass=".05"/> -->
+
+            <!-- These geoms are symmetric tall boxes that form the cavity that should be filled by the drawer front (with handle). -->
+
+            <!-- shifted by -0.063 -->
+            <geom name="drawer_cavity_1" material="MatRedWood" pos="-0.102 -0.163 0.065" size="0.012 0.012 0.064" group="0" type="box" mass="0.05"/>
+            <geom name="drawer_cavity_2" material="MatRedWood" pos="0.102 -0.163 0.065" size="0.012 0.012 0.064" group="0" type="box" mass="0.05"/>
+
+            <!-- original -->
+            <!-- <geom material="MatRedWood" pos="-0.102 -0.1 0.065" size="0.012 0.012 0.064" group="0" type="box" mass=".05"/> -->
+            <!-- <geom material="MatRedWood" pos="0.102 -0.1 0.065" size="0.012 0.012 0.064" group="0" type="box" mass=".05"/> -->
+
+        <body name="drawer_link" pos="0 -0.01 0.076">
+              <inertial pos="0 0 0.35" quat="0.5 0.5 0.5 0.5" mass="7.85398" diaginertia="0.923301 0.764585 0.168533" />
+          
+          <!-- NOTE: had to modify the joint range from BUDS since it was too small (older versions of mujoco did not enforce joint limit) -->
+          <joint type="slide" range="-1.0 0" axis="0 1 0"
+             name="goal_slidey" pos="0 0 0" damping="100.0"/>
+
+                <!-- This one makes the front drawer piece go out further -->
+                <geom name="drawer_tray_1" material="MatRedWood" pos="0 -0.155 0.007" size="0.088 0.010 0.046" group="0" type="box" mass="0.04"/>
+                <!-- <geom material="MatRedWood" pos="0 -0.095 0.007" size="0.088 0.010 0.046" group="0" type="box" mass=".04"/> -->
+
+                <geom name="drawer_tray_2" material="MatRedWood" pos="0 0.065 0.008" size="0.095 0.008 0.028" group="0" type="box" mass="0.04"/>
+
+                <!-- This one makes one of the edges shorter and longer -->
+                <geom name="drawer_tray_3" material="MatRedWood" pos="-0.072 -0.042 -0.015" size="0.008 0.114 0.008" group="0" type="box" mass="0.04"/>
+                <!-- <geom material="MatRedWood" pos="-0.072 0 0.00" size="0.008 0.084 0.028" group="0" type="box" mass=".04"/> -->
+
+                <!-- This one makes one of the edges shorter and longer -->
+                <geom name="drawer_tray_4" material="MatRedWood" pos="0.072 -0.042 -0.015" size="0.008 0.114 0.008" group="0" type="box" mass="0.04"/>
+                <!-- <geom material="MatRedWood" pos="0.072 0 0.00" size="0.008 0.084 0.028" group="0" type="box" mass=".04"/> -->
+
+                <!-- This one makes the bottom geom much longer -->
+                <geom name="drawer_bottom" material="MatRedWood" pos="0 -0.04 -0.03" size="0.08 0.12 0.008" group="0" type="box" mass="0.04"/>
+                <!-- <geom name="drawer_bottom" material="MatRedWood" pos="0 0 -0.04" size="0.08 0.09 0.008" group="0" type="box" mass=".04"/> -->
+
+                <!-- This one pulls the handle out further -->
+                <geom name="drawer_handle_1" material="MatLightWood" quat="0.7071055 0.7071081 0 0" pos="-0.05 -0.19 0.04" size="0.009 0.03" group="0" type="capsule" mass="0.06"/>
+                <geom name="drawer_handle_2" material="MatLightWood" quat="0.7071055 0 0.7071081 0" pos="0 -0.22 0.04" size="0.009 0.05" group="0" type="capsule" mass="0.06"/>
+                <geom name="drawer_handle_3" material="MatLightWood" quat="0.7071055 0.7071081 0 0" pos="0.05 -0.19 0.04" size="0.009 0.03" group="0" type="capsule" mass="0.06"/>
+                <!-- <geom material="MatLightWood" euler="1.571 0 0" pos="-0.05 -0.19 0.04" size="0.009 0.03" group="0" type="capsule" mass=".06"/> -->
+                <!-- <geom material="MatLightWood" euler="0 1.57 0" pos="0 -0.22 0.04" size="0.009 0.05" group="0" type="capsule" mass=".06"/> -->
+                <!-- <geom material="MatLightWood" euler="1.57 0 0" pos="0.05 -0.19 0.04" size="0.009 0.03" group="0" type="capsule" mass=".06"/> -->
+                <!-- <geom material="MatLightWood" euler="1.571 0 0" pos="-0.05 -0.13 0.04" size="0.009 0.03" group="0" type="capsule" mass=".06"/> -->
+                <!-- <geom material="MatLightWood" euler="0 1.57 0" pos="0 -0.16 0.04" size="0.009 0.05" group="0" type="capsule" mass=".06"/> -->
+                <!-- <geom material="MatLightWood" euler="1.57 0 0" pos="0.05 -0.13 0.04" size="0.009 0.03" group="0" type="capsule" mass=".06"/> -->
+
+        </body>
+          </body>
+        </body>
+        <site name="bottom_site" pos="0 0 -0.3" rgba="0 0 0 0" size="0.005"/>
+        <site name="top_site" pos="0 0 0.3" rgba="0 0 0 0" size="0.005"/>
+        <site name="horizontal_radius_site" pos="0.3 0 0" rgba="0 0 0 0" size="0.1"/>
+      </body>
+    </worldbody>
+</mujoco>

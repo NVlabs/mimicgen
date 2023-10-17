@@ -1,0 +1,25 @@
+<mujoco model="coffee_lid">
+  <asset>
+    <mesh file="meshes/coffee_lid.stl" name="coffee_lid_mesh" scale="0.01 0.01 0.01"/>
+    <texture file="../textures/ceramic.png" name="tex-ceramic"/>
+    <material name="ceramic" reflectance="0.5" texrepeat="1 1" texture="tex-ceramic" texuniform="true"/>
+<!--     <texture file="../textures/light-wood.png" name="lid_tex"/>
+    <material name="lid_mat" reflectance="0.5" texrepeat="1 1" texture="lid_tex" texuniform="true"/> -->
+  </asset>
+  <worldbody>
+    <body>
+      <body name="object">
+        <geom pos="0 0 0" mesh="coffee_lid_mesh" type="mesh" solimp="0.998 0.998 0.001" solref="0.001 1" density="1000" friction="0.95 0.3 0.1" group="0" condim="4" rgba="0.839 0.839 0.839 1" material="ceramic"/>
+<!--         <geom pos="0 0 0" mesh="coffee_lid_mesh" type="mesh" solimp="0.998 0.998 0.001" solref="0.001 1" density="1000" friction="0.95 0.3 0.1" group="1" condim="4" material="lid_mat"/> -->
+      </body>
+<!--       <body name="visual">
+        <geom pos="0 0 0" mesh="coffee_lid_mesh" type="mesh" conaffinity="0" contype="0"  group="0" mass="0.0001"/>
+        <geom pos="0 0 0" mesh="coffee_lid_mesh" type="mesh" conaffinity="0" contype="0"  group="1" mass="0.0001"/>
+      </body> -->
+      <!-- <site rgba="0 0 0 0" size="0.005" pos="0 0 -0.035" name="bottom_site"/> -->
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 -0.0095" name="bottom_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.0095" name="top_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0.0295 0.044 0" name="horizontal_radius_site"/>
+    </body>
+  </worldbody>
+</mujoco>

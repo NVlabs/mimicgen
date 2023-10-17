@@ -1,0 +1,19 @@
+{
+    "base_asset_path": null,
+    "model_folder": "mugs",
+    "model_name": null,
+    "scale": 0.15,
+    "show_sites": false,
+    "verbose": false,
+    "vhacd_max_output_convex_hulls": 32,
+    "vhacd_voxel_resolution": 100000,
+    "vhacd_volume_error_percent": 1.0,
+    "vhacd_max_hull_vert_count": 64,
+    "path": "/archive/shapenet_core/03797390/c2eacc521dd65bf7a1c742bb4ffef210",
+    "rot": "x",
+    "show_coll_geoms": false,
+    "hide_vis_geoms": false,
+    "no_cached_coll": false,
+    "script": "robosuite_model_zoo/scripts/import_shapenet_core.py",
+    "cmd": "python import_shapenet_core.py --scale 0.15 --model_folder mugs --path 03797390/c2eacc521dd65bf7a1c742bb4ffef210"
+}

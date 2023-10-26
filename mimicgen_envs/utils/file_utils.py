@@ -6,6 +6,7 @@
 A collection of utility functions for working with files.
 """
 import os
+import shutil
 import tempfile
 import gdown
 
@@ -40,5 +41,5 @@ def download_url_from_gdrive(url, download_dir, check_overwrite=True):
         if check_overwrite and os.path.exists(file_to_write):
             user_response = input(f"Warning: file {file_to_write} already exists. Overwrite? y/n\n")
             assert user_response.lower() in {"yes", "y"}, f"Did not receive confirmation. Aborting download."
-        os.rename(fpath, file_to_write)
+        shutil.move(fpath, file_to_write)
         os.chdir(cur_dir)

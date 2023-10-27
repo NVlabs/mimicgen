@@ -5,9 +5,10 @@
   <img width="95.0%" src="assets/mimicgen.gif">
 </p>
 
-This repository contains the official release of simulation environments and datasets for the [CoRL 2023](https://www.corl2023.org/) paper "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations". 
+This repository contains the official release of simulation environments and datasets for the [CoRL 2023](https://www.corl2023.org/) paper "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations". The datasets contain over 48,000 task demonstrations across 12 tasks.
 
-[**[Website]**](https://mimicgen.github.io) &ensp; [**[Paper]**](https://openreview.net/forum?id=dk-2R1f_LR)
+Website: https://mimicgen.github.io
+Paper: https://arxiv.org/abs/2310.17596
 
 
 -------
@@ -114,6 +115,15 @@ The datasets are split into different types:
 
 **Note 2**: We found that the large_interpolation datasets pose a significant challenge for imitation learning, and have substantial room for improvement.
 
+### Dataset Statistics
+
+We provide more information on the amount of demonstrations for each dataset type:
+- **source**: 120 human demonstrations across 12 tasks (10 per task) used to automatically generate the other datasets
+- **core**: 26,000 task demonstrations across 12 tasks (26 task variants)
+- **object**: 2000 task demonstrations on the Mug Cleanup task with different mugs
+- **robot**: 16,000 task demonstrations across 4 different robot arms on 2 tasks (4 task variants)
+- **large_interpolation**: 6000 task demonstrations across 6 tasks that pose significant challenges for modern imitation learning methods
+
 ### Dataset Download
 
 #### Method 1: Using `download_datasets.py` (Recommended)
@@ -142,6 +152,11 @@ You can download the datasets manually through Google Drive. The folders each co
 
 **Google Drive folder with all datasets:** [link](https://drive.google.com/drive/folders/14e9kkHGfApuQ709LBEbXrXVI1Lp5Ax7p?usp=drive_link)
 
+#### Method 3: Using Hugging Face
+
+You can download the datasets through Hugging Face.
+
+**Hugging Face dataset repository:** [link](https://huggingface.co/datasets/amandlek/mimicgen_datasets)
 
 ## Reproducing Policy Learning Results
 
@@ -196,7 +211,7 @@ If you run into an error not documented above, please search through the [GitHub
 
 ## Citation
 
-Please cite [the MimicGen paper](https://openreview.net/forum?id=dk-2R1f_LR) if you use this code in your work:
+Please cite [the MimicGen paper](https://arxiv.org/abs/2310.17596) if you use this code in your work:
 
 ```bibtex
 @inproceedings{mandlekar2023mimicgen,

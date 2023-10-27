@@ -5,9 +5,12 @@
   <img width="95.0%" src="assets/mimicgen.gif">
 </p>
 
-This repository contains the official release of simulation environments and datasets for the [CoRL 2023](https://www.corl2023.org/) paper "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations". The datasets contain over 48,000 task demonstrations across 12 tasks.
+This repository contains the official release of simulation environments and datasets for the [CoRL 2023](https://www.corl2023.org/) paper "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations". 
+
+The datasets contain over 48,000 task demonstrations across 12 tasks.
 
 Website: https://mimicgen.github.io
+
 Paper: https://arxiv.org/abs/2310.17596
 
 
@@ -116,6 +119,8 @@ The datasets are split into different types:
 **Note 2**: We found that the large_interpolation datasets pose a significant challenge for imitation learning, and have substantial room for improvement.
 
 ### Dataset Statistics
+
+The datasets contain over 48,000 task demonstrations across 12 tasks.
 
 We provide more information on the amount of demonstrations for each dataset type:
 - **source**: 120 human demonstrations across 12 tasks (10 per task) used to automatically generate the other datasets

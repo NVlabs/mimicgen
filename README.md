@@ -13,6 +13,7 @@ Website: https://mimicgen.github.io
 
 Paper: https://arxiv.org/abs/2310.17596
 
+For business inquiries, please submit this form: [NVIDIA Research Licensing](https://www.nvidia.com/en-us/research/inquiries/)
 
 -------
 ## Latest Updates

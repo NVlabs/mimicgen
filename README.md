@@ -17,6 +17,7 @@ For business inquiries, please submit this form: [NVIDIA Research Licensing](htt
 
 -------
 ## Latest Updates
+- [04/04/2024] **v0.1.1**: Dataset license changed to [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/), which is less restrictive (see [License](#license))
 - [09/28/2023] **v0.1.0**: Initial code and paper release
 
 -------
@@ -30,6 +31,7 @@ For business inquiries, please submit this form: [NVIDIA Research Licensing](htt
 - [Task Visualizations](#task-visualizations)
 - [Data Generation Code](#data-generation-code)
 - [Troubleshooting and Known Issues](#troubleshooting-and-known-issues)
+- [License](#license)
 - [Citation](#citation)
 
 
@@ -214,6 +216,9 @@ If you are interested in the data generation code, please send an email to amand
 
 If you run into an error not documented above, please search through the [GitHub issues](https://github.com/NVlabs/mimicgen_environments/issues), and create a new one if you cannot find a fix.
 
+## License
+
+The code is released under the [NVIDIA Source Code License](https://github.com/NVlabs/mimicgen_environments/blob/main/LICENSE) and the datasets are released under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## Citation
 

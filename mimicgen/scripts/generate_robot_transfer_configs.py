@@ -24,8 +24,7 @@ from mimicgen.utils.file_utils import config_generator_to_script_lines
 
 
 # set path to folder containing src datasets
-import mimicgen_envs
-SRC_DATA_DIR = os.path.join(mimicgen_envs.__path__[0], "../datasets/source")
+SRC_DATA_DIR = os.path.join(mimicgen.__path__[0], "../datasets/source")
 
 # set base folder for where to copy each base config and generate new config files for data generation
 CONFIG_DIR = "/tmp/robot_configs"

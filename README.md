@@ -99,7 +99,7 @@ pip install mujoco==2.3.2
 
 The following script can be used to try random actions in a task.
 ```sh
-cd mimicgen_envs/scripts
+cd mimicgen/scripts
 python demo_random_action.py
 ```
 
@@ -136,7 +136,7 @@ We provide more information on the amount of demonstrations for each dataset typ
 
 #### Method 1: Using `download_datasets.py` (Recommended)
 
-`download_datasets.py` (located at `mimicgen_envs/scripts`) is a python script that provides a programmatic way of downloading the datasets. This is the preferred method, because this script also sets up a directory structure for the datasets that works out of the box with the code for reproducing policy learning results.
+`download_datasets.py` (located at `mimicgen/scripts`) is a python script that provides a programmatic way of downloading the datasets. This is the preferred method, because this script also sets up a directory structure for the datasets that works out of the box with the code for reproducing policy learning results.
 
 A few examples of using this script are provided below:
 
@@ -168,22 +168,22 @@ You can download the datasets through Hugging Face.
 
 ## Reproducing Policy Learning Results
 
-After downloading the appropriate datasets you’re interested in using by running the `download_datasets.py` script, the `generate_training_configs.py` script (located at `mimicgen_envs/scripts`) can be used to generate all training config json files necessary to reproduce the experiments in the paper. A few examples are below.
+After downloading the appropriate datasets you’re interested in using by running the `download_datasets.py` script, the `generate_training_configs_for_public_datasets.py` script (located at `mimicgen/scripts`) can be used to generate all training config json files necessary to reproduce the experiments in the paper. A few examples are below.
 
 ```sh
-# Assume datasets already exist in mimicgen_envs/../datasets folder. Configs will be generated under mimicgen_envs/exps/paper, and training results will be at mimicgen_envs/../training_results after launching training runs.
-python generate_training_configs.py
+# Assume datasets already exist in mimicgen/../datasets folder. Configs will be generated under mimicgen/exps/paper, and training results will be at mimicgen/../training_results after launching training runs.
+python generate_training_configs_for_public_datasets.py
 
 # Alternatively, specify where datasets exist, and specify where configs should be generated.
-python generate_training_configs.py --config_dir /tmp/configs --dataset_dir /tmp/datasets --output_dir /tmp/experiment_results
+python generate_training_configs_for_public_datasets.py --config_dir /tmp/configs --dataset_dir /tmp/datasets --output_dir /tmp/experiment_results
 ```
 
-Then, to reproduce a specific set of training runs for different experiment groups (see [Dataset Types](#dataset-types)), we can simply navigate to the generated config directory, and copy training commands from the generated shell script there. As an example, we can reproduce the image training results on the Coffee D0 dataset, by looking for the correct set of commands in `mimicgen_envs/exps/paper/core.sh` and running them. The relevant section of the shell script is reproduced below.
+Then, to reproduce a specific set of training runs for different experiment groups (see [Dataset Types](#dataset-types)), we can simply navigate to the generated config directory, and copy training commands from the generated shell script there. As an example, we can reproduce the image training results on the Coffee D0 dataset, by looking for the correct set of commands in `mimicgen/exps/paper/core.sh` and running them. The relevant section of the shell script is reproduced below.
 
 ```sh
 #  task: coffee_d0
 #    obs modality: image
-python /path/to/robomimic/scripts/train.py --config /path/to/mimicgen_envs/exps/paper/core/coffee_d0/image/bc_rnn.json
+python /path/to/robomimic/scripts/train.py --config /path/to/mimicgen/exps/paper/core/coffee_d0/image/bc_rnn.json
 ```
 
 **Note 1**: Another option is to directly run `robomimic/scripts/train.py` with any generated config jsons of interest -- the commands in the shell files do exactly this.
@@ -197,7 +197,7 @@ python /path/to/robomimic/scripts/train.py --config /path/to/mimicgen_envs/exps/
 
 We provide a convenience script to write videos for each task's reset distribution at `scripts/get_reset_videos.py`. Set the `OUTPUT_FOLDER` global variable to the folder where you want to write the videos, and set `DATASET_INFOS` appropriately if you would like to limit the environments visualized. Then run the script.
 
-The environments are also readily compatible with robosuite visualization scripts such as the [demo_random_action.py](https://github.com/ARISE-Initiative/robosuite/blob/b9d8d3de5e3dfd1724f4a0e6555246c460407daa/robosuite/demos/demo_random_action.py) script and the [make_reset_video.py](https://github.com/ARISE-Initiative/robosuite/blob/b9d8d3de5e3dfd1724f4a0e6555246c460407daa/robosuite/scripts/make_reset_video.py) script, but you will need to modify these files to add a `import mimicgen_envs` line to make sure that `robosuite` can find these environments.
+The environments are also readily compatible with robosuite visualization scripts such as the [demo_random_action.py](https://github.com/ARISE-Initiative/robosuite/blob/b9d8d3de5e3dfd1724f4a0e6555246c460407daa/robosuite/demos/demo_random_action.py) script and the [make_reset_video.py](https://github.com/ARISE-Initiative/robosuite/blob/b9d8d3de5e3dfd1724f4a0e6555246c460407daa/robosuite/scripts/make_reset_video.py) script, but you will need to modify these files to add a `import mimicgen` line to make sure that `robosuite` can find these environments.
 
 
 **Note**: You can find task reset visualizations on the [website](https://mimicgen.github.io), but they may look a little different as they were generated with robosuite v1.2.

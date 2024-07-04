@@ -11,9 +11,9 @@ lines = [x for x in lines if (('.png' not in x) and ('.gif' not in x))]
 long_description = ''.join(lines)
 
 setup(
-    name="mimicgen_envs",
+    name="mimicgen",
     packages=[
-        package for package in find_packages() if package.startswith("mimicgen_envs")
+        package for package in find_packages() if package.startswith("mimicgen")
     ],
     install_requires=[
         "numpy>=1.13.3",

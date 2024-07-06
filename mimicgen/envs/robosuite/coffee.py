@@ -213,8 +213,6 @@ class Coffee(SingleArmEnv_MG):
         """
         Reward function for the task.
 
-        Dense reward: TODO
-
         The sparse reward only consists of the threading component.
 
         Note that the final reward is normalized and scaled by
@@ -468,7 +466,6 @@ class Coffee(SingleArmEnv_MG):
                 names (list): array of corresponding observable names
         """
 
-        ### TODO: this was stolen from pick-place - do we want to move this into utils to share it? ###
         pf = self.robots[0].robot_model.naming_prefix
 
         @sensor(modality=modality)
@@ -633,8 +630,6 @@ class Coffee(SingleArmEnv_MG):
 
         lid_check = self._check_lid()
         pod_check = self._check_pod()
-
-        # TODO: should probably clean up redundant code below and in @_check_pod
 
         # pod should be in pod holder
         pod_holder_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["coffee_pod_holder"]])
@@ -1250,7 +1245,7 @@ class CoffeePreparation(Coffee):
         # new task success includes mug placement
         metrics["task"] = metrics["task"] and metrics["mug_place"]
 
-        # TODO: decide if we want a check on drawer being closed here, to make the task even harder
+        # can have a check on drawer being closed here, to make the task even harder
         # print(self.sim.data.qpos[self.cabinet_qpos_addr])
 
         return metrics

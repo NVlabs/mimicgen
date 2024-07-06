@@ -223,8 +223,6 @@ class ThreePieceAssembly(SingleArmEnv_MG):
         """
         Reward function for the task.
 
-        Dense reward: TODO
-
         The sparse reward only consists of the threading component.
 
         Note that the final reward is normalized and scaled by
@@ -612,7 +610,6 @@ class ThreePieceAssembly(SingleArmEnv_MG):
                 names (list): array of corresponding observable names
         """
 
-        ### TODO: this was stolen from pick-place - do we want to move this into utils to share it? ###
         pf = self.robots[0].robot_model.naming_prefix
 
         @sensor(modality=modality)

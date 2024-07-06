@@ -23,13 +23,16 @@ from mimicgen.utils.file_utils import config_generator_to_script_lines
 
 
 # set path to folder with mimicgen generated datasets
-DATASET_DIR = "/tmp/minimal_datasets"
+# DATASET_DIR = "/tmp/core_datasets"
+DATASET_DIR = "/workspace/scratch/datasets/mimicgen_public/test_1"
 
 # set base folder for where to generate new config files for training runs
-CONFIG_DIR = "/tmp/minimal_training_configs"
+# CONFIG_DIR = "/tmp/core_train_configs"
+CONFIG_DIR = "/tmp/core_train_configs_ngc"
 
 # set base folder for training outputs (model checkpoints, videos, logs)
-OUTPUT_DIR = "/tmp/minimal_training_results"
+# OUTPUT_DIR = "/tmp/core_training_results"
+OUTPUT_DIR = "/workspace/scratch/exp_results/mimicgen_public/test_1"
 
 # path to base config
 BASE_CONFIG = os.path.join(robomimic.__path__[0], "exps/templates/bc.json")
@@ -44,8 +47,8 @@ def make_generators(base_config, dataset_dir, output_dir):
         # stack
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "stack", "demo_src_stack_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "stack", "demo_src_stack_targ_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "stack", "demo_src_stack_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "stack", "demo_src_stack_task_D1/demo.hdf5"),
             ],
             dataset_names=[
                 "stack_D0",
@@ -56,8 +59,8 @@ def make_generators(base_config, dataset_dir, output_dir):
         # stack_three
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "stack_three", "demo_src_stack_three_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "stack_three", "demo_src_stack_three_targ_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "stack_three", "demo_src_stack_three_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "stack_three", "demo_src_stack_three_task_D1/demo.hdf5"),
             ],
             dataset_names=[
                 "stack_three_D0",
@@ -68,9 +71,9 @@ def make_generators(base_config, dataset_dir, output_dir):
         # square
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "square", "demo_src_square_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "square", "demo_src_square_targ_D1/demo.hdf5"),
-                os.path.join(dataset_dir, "square", "demo_src_square_targ_D2/demo.hdf5"),
+                os.path.join(dataset_dir, "square", "demo_src_square_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "square", "demo_src_square_task_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "square", "demo_src_square_task_D2/demo.hdf5"),
             ],
             dataset_names=[
                 "square_D0",
@@ -82,9 +85,9 @@ def make_generators(base_config, dataset_dir, output_dir):
         # threading
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "threading", "demo_src_threading_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "threading", "demo_src_threading_targ_D1/demo.hdf5"),
-                os.path.join(dataset_dir, "threading", "demo_src_threading_targ_D2/demo.hdf5"),
+                os.path.join(dataset_dir, "threading", "demo_src_threading_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "threading", "demo_src_threading_task_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "threading", "demo_src_threading_task_D2/demo.hdf5"),
             ],
             dataset_names=[
                 "threading_D0",
@@ -96,9 +99,9 @@ def make_generators(base_config, dataset_dir, output_dir):
         # three_piece_assembly
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "three_piece_assembly", "demo_src_three_piece_assembly_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "three_piece_assembly", "demo_src_three_piece_assembly_targ_D1/demo.hdf5"),
-                os.path.join(dataset_dir, "three_piece_assembly", "demo_src_three_piece_assembly_targ_D2/demo.hdf5"),
+                os.path.join(dataset_dir, "three_piece_assembly", "demo_src_three_piece_assembly_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "three_piece_assembly", "demo_src_three_piece_assembly_task_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "three_piece_assembly", "demo_src_three_piece_assembly_task_D2/demo.hdf5"),
             ],
             dataset_names=[
                 "three_piece_assembly_D0",
@@ -110,9 +113,9 @@ def make_generators(base_config, dataset_dir, output_dir):
         # coffee
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "coffee", "demo_src_coffee_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "coffee", "demo_src_coffee_targ_D1/demo.hdf5"),
-                os.path.join(dataset_dir, "coffee", "demo_src_coffee_targ_D2/demo.hdf5"),
+                os.path.join(dataset_dir, "coffee", "demo_src_coffee_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "coffee", "demo_src_coffee_task_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "coffee", "demo_src_coffee_task_D2/demo.hdf5"),
             ],
             dataset_names=[
                 "coffee_D0",
@@ -124,8 +127,8 @@ def make_generators(base_config, dataset_dir, output_dir):
         # coffee_preparation
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "coffee_preparation", "demo_src_coffee_preparation_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "coffee_preparation", "demo_src_coffee_preparation_targ_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "coffee_preparation", "demo_src_coffee_preparation_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "coffee_preparation", "demo_src_coffee_preparation_task_D1/demo.hdf5"),
             ],
             dataset_names=[
                 "coffee_preparation_D0",
@@ -136,7 +139,7 @@ def make_generators(base_config, dataset_dir, output_dir):
         # nut_assembly
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "nut_assembly", "demo_src_nut_assembly_targ_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "nut_assembly", "demo_src_nut_assembly_task_D0/demo.hdf5"),
             ],
             dataset_names=[
                 "nut_assembly_D0",
@@ -146,7 +149,7 @@ def make_generators(base_config, dataset_dir, output_dir):
         # pick_place
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "pick_place", "demo_src_pick_place_targ_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "pick_place", "demo_src_pick_place_task_D0/demo.hdf5"),
             ],
             dataset_names=[
                 "pick_place_D0",
@@ -156,10 +159,10 @@ def make_generators(base_config, dataset_dir, output_dir):
         # mug_cleanup
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "mug_cleanup", "demo_src_mug_cleanup_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "mug_cleanup", "demo_src_mug_cleanup_targ_D1/demo.hdf5"),
-                os.path.join(dataset_dir, "mug_cleanup", "demo_src_mug_cleanup_targ_O1/demo.hdf5"),
-                os.path.join(dataset_dir, "mug_cleanup", "demo_src_mug_cleanup_targ_O2/demo.hdf5"),
+                os.path.join(dataset_dir, "mug_cleanup", "demo_src_mug_cleanup_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "mug_cleanup", "demo_src_mug_cleanup_task_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "mug_cleanup", "demo_src_mug_cleanup_task_O1/demo.hdf5"),
+                os.path.join(dataset_dir, "mug_cleanup", "demo_src_mug_cleanup_task_O2/demo.hdf5"),
             ],
             dataset_names=[
                 "mug_cleanup_D0",
@@ -172,8 +175,8 @@ def make_generators(base_config, dataset_dir, output_dir):
         # hammer_cleanup
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "hammer_cleanup", "demo_src_hammer_cleanup_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "hammer_cleanup", "demo_src_hammer_cleanup_targ_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "hammer_cleanup", "demo_src_hammer_cleanup_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "hammer_cleanup", "demo_src_hammer_cleanup_task_D1/demo.hdf5"),
             ],
             dataset_names=[
                 "hammer_cleanup_D0",
@@ -184,8 +187,8 @@ def make_generators(base_config, dataset_dir, output_dir):
         # kitchen
         dict(
             dataset_paths=[
-                os.path.join(dataset_dir, "kitchen", "demo_src_kitchen_targ_D0/demo.hdf5"),
-                os.path.join(dataset_dir, "kitchen", "demo_src_kitchen_targ_D1/demo.hdf5"),
+                os.path.join(dataset_dir, "kitchen", "demo_src_kitchen_task_D0/demo.hdf5"),
+                os.path.join(dataset_dir, "kitchen", "demo_src_kitchen_task_D1/demo.hdf5"),
             ],
             dataset_names=[
                 "kitchen_D0",
@@ -198,6 +201,7 @@ def make_generators(base_config, dataset_dir, output_dir):
     ret = []
     for setting in all_settings:
         for mod in ["low_dim", "image"]:
+        # for mod in ["image"]:
             ret.append(make_gen(os.path.expanduser(base_config), setting, output_dir, mod))
     return ret
 
@@ -247,6 +251,8 @@ def make_gen(base_config, settings, output_dir, mod):
         values=settings["dataset_paths"],
         value_names=settings["dataset_names"],
     )
+
+    # print(json.dumps(settings["dataset_paths"], indent=4))
 
     # rollout settings
     generator.add_param(

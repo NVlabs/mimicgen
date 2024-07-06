@@ -222,5 +222,4 @@ class LongDrawerObject(MujocoXMLObject):
         
     @property
     def horizontal_radius(self):
-        # TODO: this might need to change now
         return 0.15

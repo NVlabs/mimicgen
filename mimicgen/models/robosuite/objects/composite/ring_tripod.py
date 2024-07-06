@@ -23,8 +23,6 @@ class RingTripodObject(CompositeObject):
         name,
     ):
 
-        ### TODO: make this object more general (with more args and configuration options) later ###
-
         # Set object attributes
         self._name = name
         self.tripod_mat_name = "lightwood_mat"

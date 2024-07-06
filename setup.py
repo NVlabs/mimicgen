@@ -30,9 +30,9 @@ setup(
     python_requires='>=3',
     description="MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations",
     author="Ajay Mandlekar",
-    url="https://gitlab-master.nvidia.com/srl/mimicgen_environments",
-    author_email="amandlek@cs.stanford.edu",
-    version="0.1.0",
+    url="https://github.com/NVlabs/mimicgen",
+    author_email="amandlekar@nvidia.com",
+    version="1.0.0",
     long_description=long_description,
     long_description_content_type='text/markdown'
 )

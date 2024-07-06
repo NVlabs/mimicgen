@@ -19,7 +19,6 @@ import numpy as np
 import mimicgen
 import mimicgen.utils.file_utils as MG_FileUtils
 from mimicgen.configs import config_factory
-from mimicgen.scripts.generate_dataset import make_dataset_video, postprocess_motion_planning_dataset
 
 
 def merge_hdf5s(args):

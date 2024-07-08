@@ -198,7 +198,6 @@ def make_generators(base_config, dataset_dir, output_dir):
     ret = []
     for setting in all_settings:
         for mod in ["low_dim", "image"]:
-        # for mod in ["image"]:
             ret.append(make_gen(os.path.expanduser(base_config), setting, output_dir, mod))
     return ret
 
@@ -248,8 +247,6 @@ def make_gen(base_config, settings, output_dir, mod):
         values=settings["dataset_paths"],
         value_names=settings["dataset_names"],
     )
-
-    # print(json.dumps(settings["dataset_paths"], indent=4))
 
     # rollout settings
     generator.add_param(

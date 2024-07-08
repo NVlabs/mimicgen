@@ -36,7 +36,6 @@ mimicgen.datagen.waypoint module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

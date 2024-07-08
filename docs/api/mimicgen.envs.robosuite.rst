@@ -84,7 +84,6 @@ mimicgen.envs.robosuite.three\_piece\_assembly module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

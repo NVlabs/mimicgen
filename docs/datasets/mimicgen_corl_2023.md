@@ -1,4 +1,13 @@
-# Overview
+# MimicGen (CoRL 2023)
+
+In this section, we provide an overview of the datasets we released with the MimicGen paper. These are the same exact datasets used in our paper (but postprocessed to support a higher version of robosuite). We also show how to easily reproduce policy learning results on this data.
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+
+If you would like to reproduce our data generation results in addition to the policy learning results, please see the [Reproducing Experiments](https://mimicgen.github.io/docs/tutorials/reproducing_experiments.html) tutorial for a comprehensive guide.
+
+</div>
 
 ## Downloading and Using Datasets
 
@@ -14,9 +23,12 @@ The datasets are split into different types:
 - **robot**: datasets generated with MimicGen for different robots. These correspond to the results in Appendix F of the paper.
 - **large_interpolation**: datasets generated with MimicGen using much larger interpolation segments. These correspond to the results in Appendix H in the paper.
 
-**Note 1**: All datasets are readily compatible with [robomimic](https://robomimic.github.io/) --- the structure is explained [here](https://robomimic.github.io/docs/datasets/overview.html#dataset-structure). This means that you can use robomimic to [visualize the data](https://robomimic.github.io/docs/tutorials/dataset_contents.html) or train models with different policy learning methods that we did not explore in our paper, such as [BC-Transformer](https://robomimic.github.io/docs/tutorials/training_transformers.html).
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 
-**Note 2**: We found that the large_interpolation datasets pose a significant challenge for imitation learning, and have substantial room for improvement.
+We found that the large_interpolation datasets pose a significant challenge for imitation learning, and have substantial room for improvement.
+
+</div>
 
 ### Dataset Statistics
 
@@ -84,8 +96,9 @@ Then, to reproduce a specific set of training runs for different experiment grou
 python /path/to/robomimic/scripts/train.py --config /path/to/mimicgen/exps/paper/core/coffee_d0/image/bc_rnn.json
 ```
 
-**Note 1**: Another option is to directly run `robomimic/scripts/train.py` with any generated config jsons of interest -- the commands in the shell files do exactly this.
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 
-**Note 2**: See the [robomimic documentation](https://robomimic.github.io/docs/introduction/getting_started.html) for more information on how training works.
+In the MimicGen paper, we generated our datasets on versions of environments built on robosuite `v1.2`. Since then, we changed the environments and datasets (through postprocessing) to be based on robosuite `v1.4`. However, `v1.4` has some visual and dynamics differences from `v1.2`, so the learning results may not exactly match up with the ones we reported in the paper. In our testing on these released datasets, we were able to reproduce nearly all of our results, but within 10% of the performance reported in the paper.
 
-**Note 3**: In the MimicGen paper, we generated our datasets on versions of environments built on robosuite `v1.2`. Since then, we changed the environments and datasets (through postprocessing) to be based on robosuite `v1.4`. However, `v1.4` has some visual and dynamics differences from `v1.2`, so the learning results may not exactly match up with the ones we reported in the paper. In our testing on these released datasets, we were able to reproduce nearly all of our results, but within 10% of the performance reported in the paper.
+</div>

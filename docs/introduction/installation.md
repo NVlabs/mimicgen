@@ -25,64 +25,125 @@ cd mimicgen
 pip install -e .
 ```
 
-However, there are some additional dependencies that we list below. These are best installed from source:
+However, there are some additional dependencies that we list below.
 
-- [robosuite](https://robosuite.ai/)
-    - **Note**: This is optional and only needed if running the examples provided with this repository. The MimicGen source code does not rely on robosuite and can be used with other simulation frameworks.
-    - **Installation**
-      ```sh
-      cd <PATH_TO_YOUR_INSTALL_DIRECTORY>
-      git clone https://github.com/ARISE-Initiative/robosuite.git
-      git checkout b9d8d3de5e3dfd1724f4a0e6555246c460407daa
-      cd robosuite
-      pip install -e .
-      ```
-    - **Note**: the git checkout command corresponds to the commit we used for testing our policy learning results. In general the `master` branch (`v1.4+`) should be fine.
-    - For more detailed instructions, see [here](https://robosuite.ai/docs/installation.html)
-- [robomimic](https://robomimic.github.io/)
-    - **Installation**
-      ```sh
-      cd <PATH_TO_YOUR_INSTALL_DIRECTORY>
-      git clone https://github.com/ARISE-Initiative/robomimic.git
-      git checkout d0b37cf214bd24fb590d182edb6384333f67b661
-      cd robomimic
-      pip install -e .
-      ```
-    - **Note**: the git checkout command corresponds to the commit we used for testing our policy learning results. In general the `master` branch (`v0.3+`) should be fine.
-    - For more detailed instructions, see [here](https://robomimic.github.io/docs/introduction/installation.html)
-- [robosuite_task_zoo](https://github.com/ARISE-Initiative/robosuite-task-zoo)
-    - **Note**: This is optional and only needed for the Kitchen and Hammer Cleanup environments / datasets.
-    - **Installation**
-      ```sh
-      cd <PATH_TO_YOUR_INSTALL_DIRECTORY>
-      git clone https://github.com/ARISE-Initiative/robosuite-task-zoo
-      git checkout 74eab7f88214c21ca1ae8617c2b2f8d19718a9ed
-      cd robosuite_task_zoo
-      pip install -e .
-      ```
+### Additional Dependencies
 
-Lastly, if using robosuite, **please downgrade MuJoCo to 2.3.2**:
+Most of these additional dependencies are best installed from source.
+
+#### robosuite
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+
+[robosuite](https://robosuite.ai/) is an optional dependency that is only needed if running the examples provided with this repository. The MimicGen source code does not rely on robosuite and can be used with other simulation frameworks.
+
+</div>
+
 ```sh
-pip install mujoco==2.3.2
+$ cd <PATH_TO_YOUR_INSTALL_DIRECTORY>
+$ git clone https://github.com/ARISE-Initiative/robosuite.git
+$ git checkout b9d8d3de5e3dfd1724f4a0e6555246c460407daa
+$ cd robosuite
+$ pip install -e .
+```
+
+For more detailed instructions, see the [robosuite installation page](https://robosuite.ai/docs/installation.html).
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+
+The git checkout command corresponds to the commit we used for testing our policy learning results. In general the `master` branch (`v1.4+`) should be fine.
+
+</div>
+
+#### robomimic
+
+[robomimic](https://robomimic.github.io/) is a required dependency that provides a standardized dataset format, wrappers around simulation environments, and policy learning utilities.
+
+```sh
+$ cd <PATH_TO_YOUR_INSTALL_DIRECTORY>
+$ git clone https://github.com/ARISE-Initiative/robomimic.git
+$ git checkout d0b37cf214bd24fb590d182edb6384333f67b661
+$ cd robomimic
+$ pip install -e .
+```
+
+For more detailed instructions, see the [robomimic installation page](https://robomimic.github.io/docs/introduction/installation.html).
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+
+The git checkout command corresponds to the commit we used for testing our policy learning results. In general the `master` branch (`v0.3+`) should be fine, as long as it is after the above commit.
+
+</div>
+
+#### robosuite_task_zoo
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+
+[robosuite_task_zoo](https://github.com/ARISE-Initiative/robosuite-task-zoo) is an optional dependency that is only needed if running the Kitchen and Hammer Cleanup environments and datasets provided with this repository.
+
+</div>
+
+```sh
+$ cd <PATH_TO_YOUR_INSTALL_DIRECTORY>
+$ git clone https://github.com/ARISE-Initiative/robosuite-task-zoo
+$ git checkout 74eab7f88214c21ca1ae8617c2b2f8d19718a9ed
+$ cd robosuite_task_zoo
+$ pip install -e .
+```
+
+#### mujoco
+
+If using robosuite, **please downgrade MuJoCo to 2.3.2**:
+
+```sh
+$ pip install mujoco==2.3.2
 ```
 
 <div class="admonition warning">
-<p class="admonition-title">MuJoCo Version</p>
+<p class="admonition-title">Warning</p>
 
-This MuJoCo version (`2.3.2`) can be important -- in our testing, we found that other versions of MuJoCo could be problematic, especially for the Sawyer arm datasets (e.g. `2.3.5` causes problems with rendering and `2.3.7` changes the dynamics of the robot arm significantly from the collected datasets).
+This MuJoCo version (`2.3.2`) can be important -- in our testing, we found that other versions of MuJoCo could be problematic, especially for the Sawyer arm datasets (e.g. `2.3.5` causes problems with rendering and `2.3.7` changes the dynamics of the robot arm significantly from the collected datasets). More modern versions of MuJoCo (e.g. `3.0`+) might be fine.
+
 </div>
+
+#### pygame
+
+If you plan on using our subtask annotation interface (`scripts/annotate_subtasks.py`) you should also install pygame with `pip install pygame`. See the [Subtask Termination Signals](https://mimicgen.github.io/docs/tutorials/subtask_termination_signals.html) page for more information.
 
 ## Test Your Installation
 
 The following script can be used to try random actions in one of our custom robosuite tasks.
 ```sh
-cd mimicgen/scripts
-python demo_random_action.py
+$ cd mimicgen/scripts
+$ python demo_random_action.py
 ```
 
 <div class="admonition note">
-<p class="admonition-title">Testing Data Generation</p>
+<p class="admonition-title">Note</p>
 
 To test data generation please move on to the [Getting Started](https://mimicgen.github.io/docs/tutorials/getting_started.html) tutorial.
 
 </div>
+
+## Install documentation dependencies
+
+If you plan to contribute to the repository and add new features, you must install the additional requirements required to build the documentation locally:
+
+```sh
+$ pip install -r requirements-docs.txt
+```
+
+You can test generating the documentation and viewing it locally in a web browser:
+```sh
+$ cd <PATH_TO_MIMICGEN_INSTALL_DIR>/docs
+$ make clean
+$ make apidoc
+$ make html
+$ cp -r images _build/html/
+```
+
+There should be a generated `_build` folder - navigate to `_build/html/` and open `index.html` in a web browser to view the documentation.

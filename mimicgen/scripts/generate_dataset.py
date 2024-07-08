@@ -4,6 +4,23 @@
 
 """
 Main data generation script.
+
+Examples:
+
+    # run normal data generation
+    python generate_dataset.py --config /path/to/config.json
+
+    # render all data generation attempts on-screen
+    python generate_dataset.py --config /path/to/config.json --render
+
+    # render all data generation attempts to a video
+    python generate_dataset.py --config /path/to/config.json --video_path /path/to/video.mp4
+
+    # run a quick debug run
+    python generate_dataset.py --config /path/to/config.json --debug
+
+    # pause after every subtask to debug data generation
+    python generate_dataset.py --config /path/to/config.json --render --pause_subtask
 """
 
 import os

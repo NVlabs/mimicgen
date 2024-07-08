@@ -28,7 +28,6 @@ mimicgen.configs.task\_spec module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

@@ -24,23 +24,18 @@ from mimicgen.utils.file_utils import config_generator_to_script_lines
 
 # set path to folder containing src datasets
 SRC_DATA_DIR = os.path.join(mimicgen.__path__[0], "../datasets/source")
-# SRC_DATA_DIR = "/workspace/scratch/conda/public/mimicgen_environments/datasets/source"
 
 # set base folder for where to copy each base config and generate new config files for data generation
 CONFIG_DIR = "/tmp/core_configs"
-# CONFIG_DIR = "/tmp/core_configs_ngc"
 
 # set base folder for newly generated datasets
 OUTPUT_FOLDER = "/tmp/core_datasets"
-# OUTPUT_FOLDER = "/workspace/scratch/datasets/mimicgen_public/test_1"
 
 # number of trajectories to generate (or attempt to generate)
-# NUM_TRAJ = 1000
-NUM_TRAJ = 10
+NUM_TRAJ = 1000
 
 # whether to guarantee that many successful trajectories (e.g. keep running until that many successes, or stop at that many attempts)
-# GUARANTEE = True
-GUARANTEE = False
+GUARANTEE = True
 
 # whether to run a quick debug run instead of full generation
 DEBUG = False

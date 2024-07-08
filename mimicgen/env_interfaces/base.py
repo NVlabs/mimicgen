@@ -168,6 +168,10 @@ class MG_EnvInterface(object):
         """
         raise NotImplementedError
 
+    """
+    This method can be left as-is in most cases, as it calls other implemented methods to provide a 
+    DatagenInfo object.
+    """
     def get_datagen_info(self, action=None):
         """
         Get information needed for data generation, at the current

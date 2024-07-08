@@ -38,7 +38,12 @@ import numpy as np
 
 # for rendering images on-screen
 import cv2
-import pygame
+try:
+    import pygame
+except ImportError as e:
+    print("Got error: {}".format(e))
+    print("")
+    print("pygame is required. Please install with `pip install pygame`")
 
 import robomimic
 from robomimic.utils.file_utils import get_env_metadata_from_dataset

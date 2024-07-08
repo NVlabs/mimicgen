@@ -44,7 +44,6 @@ mimicgen.utils.robomimic\_utils module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

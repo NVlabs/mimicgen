@@ -124,7 +124,6 @@ mimicgen.scripts.visualize\_subtasks module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

@@ -17,7 +17,7 @@ Welcome to mimicgen's documentation!
    :maxdepth: 1
    :caption: Datasets
 
-   datasets/overview
+   datasets/mimicgen_corl_2023
 
 .. toctree::
    :maxdepth: 1
@@ -37,6 +37,7 @@ Welcome to mimicgen's documentation!
 
    modules/overview
    modules/datagen
+   modules/task_spec
    modules/env_interfaces
 
 .. toctree::

@@ -151,7 +151,7 @@ def make_generators(base_config, dataset_dir, output_dir):
             dataset_names=[
                 "pick_place_D0",
             ],
-            horizon=500,
+            horizon=1000,
         ),
         # mug_cleanup
         dict(

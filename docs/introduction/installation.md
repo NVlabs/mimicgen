@@ -43,8 +43,8 @@ Most of these additional dependencies are best installed from source.
 ```sh
 $ cd <PATH_TO_YOUR_INSTALL_DIRECTORY>
 $ git clone https://github.com/ARISE-Initiative/robosuite.git
-$ git checkout b9d8d3de5e3dfd1724f4a0e6555246c460407daa
 $ cd robosuite
+$ git checkout b9d8d3de5e3dfd1724f4a0e6555246c460407daa
 $ pip install -e .
 ```
 
@@ -64,8 +64,8 @@ The git checkout command corresponds to the commit we used for testing our polic
 ```sh
 $ cd <PATH_TO_YOUR_INSTALL_DIRECTORY>
 $ git clone https://github.com/ARISE-Initiative/robomimic.git
-$ git checkout d0b37cf214bd24fb590d182edb6384333f67b661
 $ cd robomimic
+$ git checkout d0b37cf214bd24fb590d182edb6384333f67b661
 $ pip install -e .
 ```
 
@@ -87,11 +87,19 @@ The git checkout command corresponds to the commit we used for testing our polic
 
 </div>
 
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+
+We recommend removing the dependencies in the `setup.py` file (the `install_requires` list) before installation, as it uses deprecated dependencies (such as mujoco-py).
+
+</div>
+
 ```sh
 $ cd <PATH_TO_YOUR_INSTALL_DIRECTORY>
 $ git clone https://github.com/ARISE-Initiative/robosuite-task-zoo
+$ cd robosuite-task-zoo
 $ git checkout 74eab7f88214c21ca1ae8617c2b2f8d19718a9ed
-$ cd robosuite_task_zoo
+# NOTE: should remove dependencies in setup.py in the "install_requires" before the last step
 $ pip install -e .
 ```
 
@@ -129,7 +137,7 @@ To test data generation please move on to the [Getting Started](https://mimicgen
 
 </div>
 
-## Install documentation dependencies
+## Install Documentation Dependencies
 
 If you plan to contribute to the repository and add new features, you must install the additional requirements required to build the documentation locally:
 

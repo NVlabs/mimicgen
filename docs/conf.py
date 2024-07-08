@@ -33,7 +33,7 @@ import mimicgen
 # ones.
 extensions = [
     'sphinx.ext.napoleon',
-    'sphinx_markdown_tables',
+    # 'sphinx_markdown_tables',
     'sphinx.ext.mathjax',
     'sphinx.ext.githubpages',
     'sphinx.ext.autodoc',

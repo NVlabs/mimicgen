@@ -28,7 +28,10 @@ $ python mimicgen/scripts/download_datasets.py --dataset_type source --tasks squ
 
 This is a basic robomimic dataset collected via teleoperation in robosuite (see [here](https://robomimic.github.io/docs/datasets/robosuite.html)). We need to add in extra information to the hdf5 to make it compatible with MimicGen:
 ```sh
-$ python mimicgen/scripts/prepare_src_dataset.py --dataset datasets/source/square.hdf5 --env_interface MG_Square --env_interface_type robosuite
+$ python mimicgen/scripts/prepare_src_dataset.py \
+--dataset datasets/source/square.hdf5 \
+--env_interface MG_Square \
+--env_interface_type robosuite
 ```
 
 The `--env_interface` and `--env_interface_type` arguments allow the script to find the correct [Environment Interface](https://mimicgen.github.io/docs/modules/env_interfaces.html) class to extract [DatagenInfo objects](https://mimicgen.github.io/docs/modules/datagen.html#datagen-info) at each timestep. In general, each task needs to have an environment interface class to tell MimicGen how to retrieve object poses and other information needed during data generation.
@@ -37,7 +40,17 @@ The `--env_interface` and `--env_interface_type` arguments allow the script to f
 
 Each data generation run requires a config json (similar to robomimic [Configs](https://robomimic.github.io/docs/modules/configs.html)) that allows us to configure different settings. Template configs for each task are at `mimicgen/exps/templates` and are auto-generated (with `scripts/generate_config_templates.py`). The repository has easy ways to modify these templates to generate new config jsons. 
 
-For now, we will use a script to produce experiment configs consistent with the MimicGen paper. Open `scripts/generate_core_configs.py` and set `NUM_TRAJ = 10` and `GUARANTEE = False` -- this means we will attempt to generate 10 new trajectories. Next, run the script:
+For now, we will use a script to produce experiment configs consistent with the MimicGen paper. Open `scripts/generate_core_configs.py` and set `NUM_TRAJ = 10` and `GUARANTEE = False` -- this means we will attempt to generate 10 new trajectories. 
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+
+If you do not edit `scripts/generate_core_configs.py` the default settings will run data generation until 1000 success trajectories have been collected. This is why it is important to set `NUM_TRAJ = 10` and `GUARANTEE = False` for a quick run. Alternatively, pass the `--debug` flag to the command in Step 3, which will run an even smaller data generation run.
+
+</div>
+
+Next, run the script:
+
 ```sh
 $ python mimicgen/scripts/generate_core_configs.py
 ```
@@ -48,8 +61,17 @@ It generates a set of configs (and prints their paths) and also prints lines tha
 
 Next, we run data generation on the Square D1 task (this will take a couple minutes):
 ```sh
-$ python mimicgen/scripts/generate_dataset.py --config /tmp/core_configs/demo_src_square_task_D1.json --auto-remove-exp
+$ python mimicgen/scripts/generate_dataset.py \
+--config /tmp/core_configs/demo_src_square_task_D1.json \
+--auto-remove-exp
 ```
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+
+If you run into a `RuntimeError: No ffmpeg exe could be found.` at the end of the script, this means rendering the dataset to video failed. We found that a simple `conda install ffmpeg` fixed the problem on our end (as documented on the [troubleshooting page](https://mimicgen.github.io/docs/miscellaneous/troubleshooting.html)).
+
+</div>
 
 By default, the data generation folder can be found at `/tmp/core_datasets/square/demo_src_square_task_D1`. The contents of this folder are as follows:
 ```

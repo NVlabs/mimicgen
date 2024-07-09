@@ -1,28 +1,23 @@
-# MimicGen
+# Overview
 
 <p align="center">
-  <img width="95.0%" src="docs/images/mimicgen.gif">
+  <img width="95.0%" src="../images/mimicgen.gif">
 </p>
 
 This repository contains the official release of data generation code, simulation environments, and datasets for the [CoRL 2023](https://www.corl2023.org/) paper "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations". 
 
-The released datasets contain over 48,000 task demonstrations across 12 tasks and the MimicGen data generation tool can create as many as you'd like.
+Website: [https://mimicgen.github.io](https://mimicgen.github.io)
 
-Website: https://mimicgen.github.io
+Paper: [https://arxiv.org/abs/2310.17596](https://arxiv.org/abs/2310.17596)
 
-Paper: https://arxiv.org/abs/2310.17596
+Documentation: [https://mimicgen.github.io/docs/introduction/overview.html](https://mimicgen.github.io/docs/introduction/overview.html)
 
-Documentation: https://mimicgen.github.io/docs/introduction/overview.html
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 
-For business inquiries, please submit this form: [NVIDIA Research Licensing](https://www.nvidia.com/en-us/research/inquiries/)
+For business inquiries, please submit this form: [NVIDIA Research Licensing](https://www.nvidia.com/en-us/research/inquiries/).
 
--------
-## Latest Updates
-- [07/09/2024] **v1.0.0**: Full code release, including data generation code
-- [04/04/2024] **v0.1.1**: Dataset license changed to [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/), which is less restrictive (see [License](#license))
-- [09/28/2023] **v0.1.0**: Initial code and paper release
-
--------
+</div>
 
 ## Useful Documentation Links
 

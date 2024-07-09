@@ -11,9 +11,9 @@ lines = [x for x in lines if (('.png' not in x) and ('.gif' not in x))]
 long_description = ''.join(lines)
 
 setup(
-    name="mimicgen_envs",
+    name="mimicgen",
     packages=[
-        package for package in find_packages() if package.startswith("mimicgen_envs")
+        package for package in find_packages() if package.startswith("mimicgen")
     ],
     install_requires=[
         "numpy>=1.13.3",
@@ -23,16 +23,15 @@ setup(
         "imageio-ffmpeg",
         "gdown",
         "chardet",
-        "mujoco==2.3.2",
     ],
     eager_resources=['*'],
     include_package_data=True,
     python_requires='>=3',
     description="MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations",
     author="Ajay Mandlekar",
-    url="https://gitlab-master.nvidia.com/srl/mimicgen_environments",
-    author_email="amandlek@cs.stanford.edu",
-    version="0.1.0",
+    url="https://github.com/NVlabs/mimicgen",
+    author_email="amandlekar@nvidia.com",
+    version="1.0.0",
     long_description=long_description,
     long_description_content_type='text/markdown'
 )

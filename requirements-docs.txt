@@ -1,0 +1,3 @@
+# requirements for building sphinx docs
+sphinx_book_theme==0.3.3
+recommonmark==0.7.1

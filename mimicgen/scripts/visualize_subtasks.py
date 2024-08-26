@@ -255,7 +255,7 @@ def visualize_subtasks(args):
 
         if args.use_obs:
             traj_grp = f["data/{}".format(ep)]
-            visualize_trajectory_with_obs(
+            visualize_subtasks_with_obs(
                 traj_grp=traj_grp,
                 subtask_end_indices=subtask_end_indices[ind],
                 video_writer=video_writer,

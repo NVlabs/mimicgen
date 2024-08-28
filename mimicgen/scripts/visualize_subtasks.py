@@ -137,7 +137,6 @@ def visualize_subtasks_with_obs(
             one to output a video with multiple image observations concatenated horizontally.
     """
     assert image_names is not None, "error: must specify at least one image observation to use in @image_names"
-    assert (stage_signal is None) or (vis_stage_inds is None)
     video_count = 0
 
     traj_len = traj_grp["actions"].shape[0]

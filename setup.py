@@ -1,14 +1,24 @@
 from setuptools import setup, find_packages
+import os
 
 # read the contents of your README file
-from os import path
-this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+this_directory = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     lines = f.readlines()
 
 # remove images from README
 lines = [x for x in lines if (('.png' not in x) and ('.gif' not in x))]
 long_description = ''.join(lines)
+
+def package_files(directory):
+    paths = []
+    for (path, _, filenames) in os.walk(directory):
+        for filename in filenames:
+            paths.append(os.path.join('..', path, filename))
+    return paths
+
+extra_files = package_files('mimicgen/exps')
+extra_files.extend(package_files('mimicgen/models'))
 
 setup(
     name="mimicgen",
@@ -27,10 +37,7 @@ setup(
     eager_resources=['*'],
     include_package_data=True,
     package_data={
-        'mimicgen': [
-            'exps/template/**/*',
-            'models/**/*',
-        ]
+        'mimicgen': extra_files
     },
     python_requires='>=3',
     description="MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations",

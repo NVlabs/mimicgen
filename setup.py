@@ -16,7 +16,7 @@ setup(
         package for package in find_packages() if package.startswith("mimicgen")
     ],
     install_requires=[
-        "numpy>=1.13.3",
+        "numpy>=1.13.3,<2",
         "h5py",
         "tqdm",
         "imageio",
@@ -26,6 +26,12 @@ setup(
     ],
     eager_resources=['*'],
     include_package_data=True,
+    package_data={
+        'mimicgen': [
+            'exps/template/**/*',
+            'models/**/*',
+        ]
+    },
     python_requires='>=3',
     description="MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations",
     author="Ajay Mandlekar",

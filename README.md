@@ -18,6 +18,7 @@ For business inquiries, please submit this form: [NVIDIA Research Licensing](htt
 
 -------
 ## Latest Updates
+- [09/19/2024] **v1.0.1**: Datasets hosted only on Hugging Face (Google Drive deprecated)
 - [07/09/2024] **v1.0.0**: Full code release, including data generation code
 - [04/04/2024] **v0.1.1**: Dataset license changed to [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/), which is less restrictive (see [License](#license))
 - [09/28/2023] **v0.1.0**: Initial code and paper release

@@ -23,6 +23,7 @@ setup(
         "imageio-ffmpeg",
         "gdown",
         "chardet",
+        "huggingface_hub",
     ],
     eager_resources=['*'],
     include_package_data=True,

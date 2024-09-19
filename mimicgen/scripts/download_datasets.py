@@ -10,7 +10,7 @@ import argparse
 
 import mimicgen
 import mimicgen.utils.file_utils as FileUtils
-from mimicgen import DATASET_REGISTRY
+from mimicgen import DATASET_REGISTRY, HF_REPO_ID
 
 
 if __name__ == "__main__":
@@ -80,8 +80,9 @@ if __name__ == "__main__":
             # Make sure path exists and create if it doesn't
             os.makedirs(download_dir, exist_ok=True)
             print("")
-            FileUtils.download_url_from_gdrive(
-                url=url, 
+            FileUtils.download_file_from_hf(
+                repo_id=HF_REPO_ID,
+                filename=url,
                 download_dir=download_dir,
                 check_overwrite=True,
             )

@@ -63,15 +63,9 @@ python download_datasets.py --dataset_type core --tasks all --dry_run
 python download_datasets.py --dataset_type source --tasks all
 ```
 
-#### Method 2: Using Direct Download Links
+#### Method 2: Using Hugging Face
 
-You can download the datasets manually through Google Drive. The folders each correspond to the dataset types described in [Dataset Types](#dataset-types).
-
-**Google Drive folder with all datasets:** [link](https://drive.google.com/drive/folders/14e9kkHGfApuQ709LBEbXrXVI1Lp5Ax7p?usp=drive_link)
-
-#### Method 3: Using Hugging Face
-
-You can download the datasets through Hugging Face.
+You can download the datasets through Hugging Face by using direct download links from the HF dataset page, or by using their API.
 
 **Hugging Face dataset repository:** [link](https://huggingface.co/datasets/amandlek/mimicgen_datasets)
 

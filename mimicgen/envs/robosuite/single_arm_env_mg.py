@@ -65,6 +65,14 @@ class SingleArmEnv_MG(SingleArmEnv):
                 new_path = "/".join(new_path_split)
                 elem.set("file", new_path)
 
+            # note: needed since some datasets may have old paths when repo was named mimicgen_envs
+            check_lst = [loc for loc, val in enumerate(old_path_split) if val == "mimicgen_envs"]
+            if len(check_lst) > 0:
+                ind = max(check_lst) # last occurrence index
+                new_path_split = os.path.split(mimicgen.__file__)[0].split("/") + old_path_split[ind + 1 :]
+                new_path = "/".join(new_path_split)
+                elem.set("file", new_path)
+
             # replace all paths to robosuite_task_zoo assets
             check_lst = [loc for loc, val in enumerate(old_path_split) if val == "robosuite_task_zoo"]
             if len(check_lst) > 0:

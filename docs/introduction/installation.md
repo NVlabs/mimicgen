@@ -53,7 +53,14 @@ For more detailed instructions, see the [robosuite installation page](https://ro
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 
-The git checkout command corresponds to the commit we used for testing our policy learning results. In general the `master` branch (`v1.4+`) should be fine.
+The git checkout command corresponds to the commit we used for testing our policy learning results. However, you should also be able to use the `v1.4.1` branch of robosuite.
+
+</div>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+
+The current codebase does not support robosuite `v1.5+`. Supporting this would require changing some details due to the changed controller conventions in the new versions.
 
 </div>
 

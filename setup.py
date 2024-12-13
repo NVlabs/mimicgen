@@ -1,3 +1,7 @@
+# Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+#
+# Licensed under the NVIDIA Source Code License [see LICENSE for details].
+
 from setuptools import setup, find_packages
 
 # read the contents of your README file

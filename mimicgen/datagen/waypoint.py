@@ -388,6 +388,9 @@ class WaypointTrajectory(object):
                 # add in gripper action
                 play_action = np.concatenate([action_pose, waypoint.gripper_action], axis=0)
 
+                # mobile base action
+                play_action = np.concatenate([play_action, [0, 0, 0, 0], [-1]], axis=0)
+
                 # store datagen info too
                 datagen_info = env_interface.get_datagen_info(action=play_action)
 

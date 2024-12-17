@@ -31,6 +31,7 @@ class MG_TaskSpec:
         num_interpolation_steps=5,
         num_fixed_steps=0,
         apply_noise_during_interpolation=False,
+        pad_zero=None,
     ):
         """
         Add subtask to this task spec.
@@ -90,6 +91,7 @@ class MG_TaskSpec:
             num_interpolation_steps=num_interpolation_steps,
             num_fixed_steps=num_fixed_steps,
             apply_noise_during_interpolation=apply_noise_during_interpolation,
+            pad_zero=pad_zero,
         ))
 
     @classmethod

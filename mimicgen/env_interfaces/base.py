@@ -168,6 +168,10 @@ class MG_EnvInterface(object):
         """
         raise NotImplementedError
 
+
+    def get_controller_base_pose(self):
+        raise NotImplementedError
+
     """
     This method can be left as-is in most cases, as it calls other implemented methods to provide a 
     DatagenInfo object.
@@ -199,11 +203,15 @@ class MG_EnvInterface(object):
             target_pose = self.action_to_target_pose(action=action, relative=True)
             gripper_action = self.action_to_gripper_action(action=action)
 
+        base_pos, base_rot = self.get_controller_base_pose()
+
         datagen_info = DatagenInfo(
             eef_pose=eef_pose,
             object_poses=object_poses,
             subtask_term_signals=subtask_term_signals,
             target_pose=target_pose,
             gripper_action=gripper_action,
+            base_pos=base_pos,
+            base_rot=base_rot,
         )
         return datagen_info

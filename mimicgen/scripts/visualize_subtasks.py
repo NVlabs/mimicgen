@@ -226,7 +226,7 @@ def visualize_subtasks(args):
         subtask_term_offset_ranges = [(0, offset) for offset in args.offsets] + [None]
 
     # parse dataset to get subtask boundaries
-    _, subtask_indices, _, subtask_term_offset_ranges_ret = MG_FileUtils.parse_source_dataset(
+    _, subtask_indices, _, subtask_term_offset_ranges_ret, _ = MG_FileUtils.parse_source_dataset(
         dataset_path=dataset_path,
         demo_keys=demo_keys,
         task_spec=task_spec,

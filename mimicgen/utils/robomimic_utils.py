@@ -88,15 +88,15 @@ def create_env(
     # create environment
     env = EnvUtils.create_env_for_data_processing(
         env_meta=env_meta,
-        env_class=env_class,
+        # env_class=env_class,
         camera_names=camera_names, 
         camera_height=camera_height, 
         camera_width=camera_width, 
         reward_shaping=False,
-        render=render,
-        render_offscreen=render_offscreen,
-        use_image_obs=use_image_obs,
-        use_depth_obs=use_depth_obs,
+        # render=render,
+        # render_offscreen=render_offscreen,
+        # use_image_obs=use_image_obs,
+        # use_depth_obs=use_depth_obs,
     )
 
     return env
@@ -131,7 +131,7 @@ def make_dataset_video(
     playback_args.render_image_names = render_image_names
     if (render_image_names is None):
         # default robosuite
-        playback_args.render_image_names = ["agentview"]
+        playback_args.render_image_names = ["robot0_agentview_center"]
     playback_args.render_depth_names = None
     playback_args.first = False
 

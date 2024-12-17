@@ -5,11 +5,18 @@
 __version__ = "1.0.1"
 
 # try to import all environment interfaces here
-try:
-    from mimicgen.env_interfaces.robosuite import *
-except ImportError as e:
-    print("WARNING: robosuite environment interfaces not imported...")
-    print("Got error: {}".format(e))
+# try:
+from mimicgen.env_interfaces.robosuite import *
+from mimicgen.env_interfaces.robocasa.single_stage.mg_coffee import *
+from mimicgen.env_interfaces.robocasa.single_stage.mg_doors import *
+from mimicgen.env_interfaces.robocasa.single_stage.mg_drawer import *
+from mimicgen.env_interfaces.robocasa.single_stage.mg_microwave import *
+from mimicgen.env_interfaces.robocasa.single_stage.mg_pnp import *
+from mimicgen.env_interfaces.robocasa.single_stage.mg_sink import *
+from mimicgen.env_interfaces.robocasa.single_stage.mg_stove import *
+# except ImportError as e:
+#     print("WARNING: robosuite environment interfaces not imported...")
+#     print("Got error: {}".format(e))
 
 # import tasks to make sure they are added to robosuite task registry
 try:

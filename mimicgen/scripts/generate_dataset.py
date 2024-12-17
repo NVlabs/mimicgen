@@ -304,28 +304,28 @@ def generate_dataset(
     while True:
 
         # generate trajectory
-        try:
-            generated_traj = data_generator.generate(
-                env=env,
-                env_interface=env_interface,
-                select_src_per_subtask=mg_config.experiment.generation.select_src_per_subtask,
-                transform_first_robot_pose=mg_config.experiment.generation.transform_first_robot_pose,
-                interpolate_from_last_target_pose=mg_config.experiment.generation.interpolate_from_last_target_pose,
-                render=render,
-                video_writer=video_writer,
-                video_skip=video_skip,
-                camera_names=render_image_names,
-                pause_subtask=pause_subtask,
-            )
-        except exceptions_to_except as e:
-            # problematic trajectory - do not have this count towards our total number of attempts, and re-try
-            print("")
-            print("*" * 50)
-            print("WARNING: got rollout exception {}".format(e))
-            print("*" * 50)
-            print("")
-            num_problematic += 1
-            continue
+        # try:
+        generated_traj = data_generator.generate(
+            env=env,
+            env_interface=env_interface,
+            select_src_per_subtask=mg_config.experiment.generation.select_src_per_subtask,
+            transform_first_robot_pose=mg_config.experiment.generation.transform_first_robot_pose,
+            interpolate_from_last_target_pose=mg_config.experiment.generation.interpolate_from_last_target_pose,
+            render=render,
+            video_writer=video_writer,
+            video_skip=video_skip,
+            camera_names=render_image_names,
+            pause_subtask=pause_subtask,
+        )
+        # except exceptions_to_except as e:
+        #     # problematic trajectory - do not have this count towards our total number of attempts, and re-try
+        #     print("")
+        #     print("*" * 50)
+        #     print("WARNING: got rollout exception {}".format(e))
+        #     print("*" * 50)
+        #     print("")
+        #     num_problematic += 1
+        #     continue
 
         # remember selection of source demos for each subtask
         selected_src_demo_inds_all.append(generated_traj["src_demo_inds"])
@@ -544,12 +544,12 @@ def main(args):
         # maybe modify config for debugging purposes
         if args.debug:
             # shrink length of generation to test whether this run is likely to crash
-            mg_config.experiment.source.n = 3
+            # mg_config.experiment.source.n = 10
             mg_config.experiment.generation.guarantee = False
-            mg_config.experiment.generation.num_trials = 2
+            mg_config.experiment.generation.num_trials = 100
 
             # send output to a temporary directory
-            mg_config.experiment.generation.path = "/tmp/tmp_mimicgen"
+            # mg_config.experiment.generation.path = "/tmp/tmp_mimicgen"
 
     # catch error during generation and print it
     res_str = "finished run successfully!"

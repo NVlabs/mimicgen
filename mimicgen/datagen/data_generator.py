@@ -61,11 +61,15 @@ class DataGenerator(object):
         Load important information from a dataset into internal memory.
         """
         print("\nDataGenerator: loading dataset at path {}...".format(dataset_path))
-        self.src_dataset_infos, self.src_subtask_indices, self.subtask_names, _ = MG_FileUtils.parse_source_dataset(
+        self.src_dataset_infos, self.src_subtask_indices, self.subtask_names, _, valid_demo_keys = MG_FileUtils.parse_source_dataset(
             dataset_path=dataset_path,
             demo_keys=demo_keys,
             task_spec=self.task_spec,
         )
+
+        # set demo keys to valid keys
+        self.demo_keys = valid_demo_keys
+
         print("\nDataGenerator: done loading\n")
 
     def __repr__(self):

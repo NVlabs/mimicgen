@@ -32,7 +32,7 @@ class RobosuiteInterface(MG_EnvInterface):
 
         # OSC control frame is a MuJoCo site - just retrieve its current pose
         return self.get_object_pose(
-            obj_name=self.env.robots[0].controller.eef_name, 
+            obj_name=self.env.robots[0].composite_controller.get_controller("right").ref_name, 
             obj_type="site",
         )
 
@@ -61,8 +61,10 @@ class RobosuiteInterface(MG_EnvInterface):
         curr_pos, curr_rot = PoseUtils.unmake_pose(curr_pose)
 
         # get maximum position and rotation action bounds
-        max_dpos = self.env.robots[0].controller.output_max[0]
-        max_drot = self.env.robots[0].controller.output_max[3]
+        max_dpos = self.env.robots[0].composite_controller.get_controller("right").output_max[0]
+        max_drot = self.env.robots[0].composite_controller.get_controller("right").output_max[3]
+
+        curr_base_pos, curr_base_rot = self.get_controller_base_pose()
 
         if relative:
             # normalized delta position action
@@ -74,6 +76,22 @@ class RobosuiteInterface(MG_EnvInterface):
             delta_quat = T.mat2quat(delta_rot_mat)
             delta_rotation = T.quat2axisangle(delta_quat)
             delta_rotation = np.clip(delta_rotation / max_drot, -1., 1.)
+
+            # convert to action in base frame
+            base_angle = T.quat2axisangle(T.mat2quat(curr_base_rot))[2]
+            x_w = delta_position[0]
+            y_w = delta_position[1]
+            x_r = np.cos(base_angle) * x_w + np.sin(base_angle) * y_w
+            y_r = -np.sin(base_angle) * x_w + np.cos(base_angle) * y_w
+            delta_position[0] = x_r
+            delta_position[1] = y_r
+            roll_w = delta_rotation[0]
+            pitch_w = delta_rotation[1]
+            roll_r = np.cos(base_angle) * roll_w + np.sin(base_angle) * pitch_w
+            pitch_r = -np.sin(base_angle) * roll_w + np.cos(base_angle) * pitch_w
+            delta_rotation[0] = roll_r
+            delta_rotation[1] = pitch_r
+
             return np.concatenate([delta_position, delta_rotation])
 
         # absolute position and rotation action
@@ -106,8 +124,8 @@ class RobosuiteInterface(MG_EnvInterface):
             target_rot = T.quat2mat(target_quat)
         else:
             # get maximum position and rotation action bounds
-            max_dpos = self.env.robots[0].controller.output_max[0]
-            max_drot = self.env.robots[0].controller.output_max[3]
+            max_dpos = self.env.robots[0].composite_controller.get_controller("right").output_max[0]
+            max_drot = self.env.robots[0].composite_controller.get_controller("right").output_max[3]
 
             # unscale actions
             delta_position = action[:3] * max_dpos
@@ -137,8 +155,8 @@ class RobosuiteInterface(MG_EnvInterface):
             gripper_action (np.array): subset of environment action for gripper actuation
         """
 
-        # last dimension is gripper action
-        return action[-1:]
+        # gripper action is right after arm action
+        return action[6:7]
 
     # robosuite-specific helper method for getting object poses
     def get_object_pose(self, obj_name, obj_type):
@@ -168,6 +186,10 @@ class RobosuiteInterface(MG_EnvInterface):
             obj_rot = np.array(self.env.sim.data.site_xmat[obj_id].reshape(3, 3))
 
         return PoseUtils.make_pose(obj_pos, obj_rot)
+
+    def get_controller_base_pose(self):
+        base_pos, base_rot = self.env.robots[0].composite_controller.get_controller_base_pose("right")
+        return base_pos, base_rot
 
 
 class MG_Coffee(RobosuiteInterface):

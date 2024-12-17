@@ -144,6 +144,11 @@ def prepare_src_dataset(
     print(json.dumps(env.serialize(), indent=4))
     print("")
 
+    if env_interface_name is None:
+        # infer env interface name if not provided
+        env_name = env_meta["env_name"]
+        env_interface_name = "MG_{}".format(env_name)
+
     # create environment interface for us to grab relevant information from simulation at each timestep
     env_interface = make_interface(
         name=env_interface_name,
@@ -181,6 +186,7 @@ def prepare_src_dataset(
         initial_state = dict(states=states[0])
         if is_robosuite_env:
             initial_state["model"] = ep_grp.attrs["model_file"]
+            initial_state["ep_meta"] = ep_grp.attrs.get("ep_meta", None)
 
         # extract datagen info
         actions = ep_grp["actions"][()]
@@ -223,13 +229,12 @@ if __name__ == "__main__":
     parser.add_argument(
         "--env_interface",
         type=str,
-        required=True,
         help="name of environment interface class to use for this source dataset",
     )
     parser.add_argument(
         "--env_interface_type",
         type=str,
-        required=True,
+        default="robosuite",
         help="type of environment interface to use for this source dataset",
     )
     parser.add_argument(

@@ -21,6 +21,8 @@ class DatagenInfo(object):
         subtask_term_signals=None,
         target_pose=None,
         gripper_action=None,
+        base_pos=None,
+        base_rot=None,
     ):
         """
         Args:
@@ -60,6 +62,14 @@ class DatagenInfo(object):
         if gripper_action is not None:
             self.gripper_action = np.array(gripper_action)
 
+        self.base_pos = None
+        if base_pos is not None:
+            self.base_pos = np.array(base_pos)
+
+        self.base_rot = None
+        if base_rot is not None:
+            self.base_rot = np.array(base_rot)
+
     def to_dict(self):
         """
         Convert this instance to a dictionary containing the same information.
@@ -75,4 +85,8 @@ class DatagenInfo(object):
             ret["target_pose"] = np.array(self.target_pose)
         if self.gripper_action is not None:
             ret["gripper_action"] = np.array(self.gripper_action)
+        if self.base_pos is not None:
+            ret["base_pos"] = np.array(self.base_pos)
+        if self.base_rot is not None:
+            ret["base_rot"] = np.array(self.base_rot)
         return ret

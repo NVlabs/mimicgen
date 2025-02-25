@@ -26,6 +26,18 @@ def add_red_border_to_frame(frame, ratio=0.02):
     frame[:, -border_size_y:, :] = [255., 0., 0.]
     return frame
 
+def deep_update(d, u):
+    """
+    Recursively update a mapping.
+    """
+    import collections
+    for k, v in u.items():
+        if isinstance(v, collections.abc.Mapping):
+            d[k] = deep_update(d.get(k, {}), v)
+        else:
+            d[k] = v
+    return d
+
 
 class Grid(object):
     """

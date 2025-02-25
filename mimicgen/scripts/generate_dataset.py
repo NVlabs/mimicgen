@@ -230,9 +230,7 @@ def generate_dataset(
     env = RobomimicUtils.create_env(
         env_meta=env_meta,
         env_class=None,
-        env_name=mg_config.experiment.task.name,
-        robot=mg_config.experiment.task.robot,
-        gripper=mg_config.experiment.task.gripper,
+        env_meta_update_kwargs=mg_config.experiment.task.args,
         camera_names=camera_names,
         camera_height=mg_config.obs.camera_height,
         camera_width=mg_config.obs.camera_width,
@@ -252,9 +250,10 @@ def generate_dataset(
     )
     # possibly override from config
     if mg_config.experiment.task.interface is not None:
-        env_interface_name = mg_config.experiment.task.interface
-    if mg_config.experiment.task.interface_type is not None:
-        env_interface_type = mg_config.experiment.task.interface_type
+        if mg_config.experiment.task.interface.name is not None:
+            env_interface_name = mg_config.experiment.task.interface.name
+        if mg_config.experiment.task.interface.type is not None:
+            env_interface_type = mg_config.experiment.task.interface.type
 
     # create environment interface to use during data generation
     env_interface = make_interface(

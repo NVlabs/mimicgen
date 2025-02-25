@@ -119,11 +119,10 @@ class MG_Config(Config):
         self.experiment.generation.interpolate_from_last_target_pose = True
 
         # settings related to task used for data generation
-        self.experiment.task.name = None                    # if provided, override the env name in env meta to collect data on a different environment from the one in source data
-        self.experiment.task.robot = None                   # if provided, override the robot name in env meta to collect data on a different robot from the one in source data
-        self.experiment.task.gripper = None                 # if provided, override the gripper in env meta to collect data on a different robot gripper from the one in source data
-        self.experiment.task.interface = None               # if provided, override the environment interface class to use for this task to use a different one from the one in source data
-        self.experiment.task.interface_type = None          # if provided, specify environment interface type (usually one per simulator) to use a different one from the one in source data
+        self.experiment.task.args = Config()                  # if provided, override the arguments passed to the environment constructor, possibly to collect data on a different environment from the one in source data
+        self.experiment.task.args.do_not_lock_keys()
+        self.experiment.task.interface.name = None            # if provided, override the environment interface class to use for this task to use a different one from the one in source data
+        self.experiment.task.interface.type = None            # if provided, specify environment interface type (usually one per simulator) to use a different one from the one in source data
 
         # general settings
         self.experiment.max_num_failures = 50           # maximum number of failure demos to save

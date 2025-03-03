@@ -26,6 +26,7 @@ def add_red_border_to_frame(frame, ratio=0.02):
     frame[:, -border_size_y:, :] = [255., 0., 0.]
     return frame
 
+
 def deep_update(d, u):
     """
     Recursively update a mapping.

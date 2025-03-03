@@ -16,7 +16,7 @@ from robomimic.utils.log_utils import PrintLogger
 import robomimic.utils.env_utils as EnvUtils
 from robomimic.scripts.playback_dataset import playback_dataset, DEFAULT_CAMERAS
 
-from .misc_utils import deep_update
+from mimicgen.utils.misc_utils import deep_update
 
 
 def make_print_logger(txt_file):
@@ -34,8 +34,11 @@ def make_print_logger(txt_file):
 
 def create_env(
     env_meta,
-    env_meta_update_kwargs=None,
     env_class=None,
+    env_name=None,
+    robot=None,
+    gripper=None,
+    env_meta_update_kwargs=None,
     camera_names=None,
     camera_height=84,
     camera_width=84,
@@ -50,10 +53,16 @@ def create_env(
     Args:
         env_meta (dict): environment metadata compatible with robomimic, see
             https://robomimic.github.io/docs/modules/environments.html
-        env_meta_update_kwargs (dict or None): if provided, update the environment
-            metadata with these kwargs
         env_class (class or None): if provided, use this class instead of the
             one inferred from @env_meta
+        env_name (str or None): if provided, override environment name 
+            in @env_meta
+        robot (str or None): if provided, override the robot argument in
+            @env_meta. Currently only supported by robosuite environments.
+        gripper (str or None): if provided, override the gripper argument in
+            @env_meta. Currently only supported by robosuite environments.
+        env_meta_update_kwargs (dict or None): if provided, update the environment
+            metadata with these kwargs
         camera_names (list of str or None): list of camera names that correspond to image observations
         camera_height (int): camera height for all cameras
         camera_width (int): camera width for all cameras
@@ -63,6 +72,20 @@ def create_env(
         use_depth_obs (bool or None): optionally override rendering behavior
     """
     env_meta = deepcopy(env_meta)
+
+    # maybe override some settings in environment metadata
+    if env_name is not None:
+        env_meta["env_name"] = env_name
+    if robot is not None:
+        # for now, only support this argument for robosuite environments
+        assert EnvUtils.is_robosuite_env(env_meta)
+        assert robot in ["IIWA", "Sawyer", "UR5e", "Panda", "Jaco", "Kinova3"]
+        env_meta["env_kwargs"]["robots"] = [robot]
+    if gripper is not None:
+        # for now, only support this argument for robosuite environments
+        assert EnvUtils.is_robosuite_env(env_meta)
+        assert gripper in ["PandaGripper", "RethinkGripper", "Robotiq85Gripper", "Robotiq140Gripper"]
+        env_meta["env_kwargs"]["gripper_types"] = [gripper]
 
     # maybe update environment metadata with additional kwargs
     if env_meta_update_kwargs is not None:

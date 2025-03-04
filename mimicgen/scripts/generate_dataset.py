@@ -233,6 +233,7 @@ def generate_dataset(
         env_name=mg_config.experiment.task.name,
         robot=mg_config.experiment.task.robot,
         gripper=mg_config.experiment.task.gripper,
+        env_meta_update_kwargs=mg_config.experiment.task.env_meta_update_kwargs,
         camera_names=camera_names,
         camera_height=mg_config.obs.camera_height,
         camera_width=mg_config.obs.camera_width,

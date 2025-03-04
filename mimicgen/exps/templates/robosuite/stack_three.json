@@ -22,6 +22,7 @@
             "name": null,
             "robot": null,
             "gripper": null,
+            "env_meta_update_kwargs": {},
             "interface": null,
             "interface_type": null
         },

@@ -27,6 +27,19 @@ def add_red_border_to_frame(frame, ratio=0.02):
     return frame
 
 
+def deep_update(d, u):
+    """
+    Recursively update a mapping.
+    """
+    import collections
+    for k, v in u.items():
+        if isinstance(v, collections.abc.Mapping):
+            d[k] = deep_update(d.get(k, {}), v)
+        else:
+            d[k] = v
+    return d
+
+
 class Grid(object):
     """
     Keep track of a list of values, and point to a single value at a time.

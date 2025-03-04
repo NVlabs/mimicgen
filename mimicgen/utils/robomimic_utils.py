@@ -34,8 +34,8 @@ def make_print_logger(txt_file):
 
 def create_env(
     env_meta,
-    env_class=None,
     env_name=None,
+    env_class=None,
     robot=None,
     gripper=None,
     env_meta_update_kwargs=None,
@@ -53,10 +53,10 @@ def create_env(
     Args:
         env_meta (dict): environment metadata compatible with robomimic, see
             https://robomimic.github.io/docs/modules/environments.html
-        env_class (class or None): if provided, use this class instead of the
-            one inferred from @env_meta
         env_name (str or None): if provided, override environment name 
             in @env_meta
+        env_class (class or None): if provided, use this class instead of the
+            one inferred from @env_meta
         robot (str or None): if provided, override the robot argument in
             @env_meta. Currently only supported by robosuite environments.
         gripper (str or None): if provided, override the gripper argument in

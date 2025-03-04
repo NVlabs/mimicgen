@@ -253,10 +253,9 @@ def generate_dataset(
     )
     # possibly override from config
     if mg_config.experiment.task.interface is not None:
-        if mg_config.experiment.task.interface.name is not None:
-            env_interface_name = mg_config.experiment.task.interface.name
-        if mg_config.experiment.task.interface.type is not None:
-            env_interface_type = mg_config.experiment.task.interface.type
+        env_interface_name = mg_config.experiment.task.interface
+    if mg_config.experiment.task.interface_type is not None:
+        env_interface_type = mg_config.experiment.task.interface_type
 
     # create environment interface to use during data generation
     env_interface = make_interface(

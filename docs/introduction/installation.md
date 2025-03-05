@@ -53,7 +53,7 @@ For more detailed instructions, see the [robosuite installation page](https://ro
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 
-The git checkout command corresponds to the commit we used for testing our policy learning results. However, you should also be able to use the `v1.4.1` branch of robosuite.
+The git checkout command corresponds to the commit we used for testing our policy learning results. Checking out the past branch of robosuite is **mandatory** because the robosuite import path of the current mimicgen repo is not compatible with `v1.5`. However, you should also be able to use the `v1.4.1` branch of robosuite.
 
 </div>
 

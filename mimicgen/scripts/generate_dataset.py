@@ -356,7 +356,7 @@ def generate_dataset(
 
             # check if this failure should be kept
             if mg_config.experiment.generation.keep_failed and \
-                (mg_config.experiment.max_num_failures is None) or (num_failures <= mg_config.experiment.max_num_failures):
+                ((mg_config.experiment.max_num_failures is None) or (num_failures <= mg_config.experiment.max_num_failures)):
                 
                 # save failed trajectory in separate folder
                 MG_FileUtils.write_demo_to_hdf5(

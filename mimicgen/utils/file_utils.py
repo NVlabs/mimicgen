@@ -189,9 +189,10 @@ def parse_source_dataset(
                 # final subtask, finishes at end of demo
                 subtask_term_ind = ep_grp["actions"].shape[0]
             else:
-                # trick to detect index where first 0 -> 1 transition occurs - this will be the end of the subtask
+                # detect indices where 0 -> 1 transition occurs - this will be the end of the subtask
                 subtask_indicators = ep_datagen_info_obj.subtask_term_signals[subtask_term_signal]
                 diffs = subtask_indicators[1:] - subtask_indicators[:-1]
+                # find the first index where the subtask is completed, after the previous subtask termination index
                 end_ind = next((int(nz) + 1 for nz in diffs.nonzero()[0] if int(nz) + 1 >= prev_subtask_term_ind), None)
                 assert end_ind is not None, f"No valid subtask termination found for {subtask_term_signal} in demo {ep}"
 

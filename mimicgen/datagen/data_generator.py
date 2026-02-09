@@ -254,6 +254,7 @@ class DataGenerator(object):
         generated_obs = []
         generated_datagen_infos = []
         generated_actions = []
+        generated_actions_abs = []
         generated_success = False
         generated_src_demo_inds = [] # store selected src demo ind for each subtask in each trajectory
         generated_src_demo_labels = [] # like @generated_src_demo_inds, but padded to align with size of @generated_actions
@@ -381,6 +382,7 @@ class DataGenerator(object):
                 generated_obs += exec_results["observations"]
                 generated_datagen_infos += exec_results["datagen_infos"]
                 generated_actions.append(exec_results["actions"])
+                generated_actions_abs.append(exec_results["actions_abs"])
                 generated_success = generated_success or exec_results["success"]
                 generated_src_demo_inds.append(selected_src_demo_ind)
                 generated_src_demo_labels.append(selected_src_demo_ind * np.ones((exec_results["actions"].shape[0], 1), dtype=int))
@@ -394,6 +396,7 @@ class DataGenerator(object):
         # merge numpy arrays
         if len(generated_actions) > 0:
             generated_actions = np.concatenate(generated_actions, axis=0)
+            generated_actions_abs = np.concatenate(generated_actions_abs, axis=0)
             generated_src_demo_labels = np.concatenate(generated_src_demo_labels, axis=0)
 
         results = dict(
@@ -402,6 +405,7 @@ class DataGenerator(object):
             observations=generated_obs,
             datagen_infos=generated_datagen_infos,
             actions=generated_actions,
+            actions_abs=generated_actions_abs,
             success=generated_success,
             src_demo_inds=generated_src_demo_inds,
             src_demo_labels=generated_src_demo_labels,

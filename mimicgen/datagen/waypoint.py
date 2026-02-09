@@ -8,9 +8,11 @@ A collection of classes used to represent waypoints and trajectories.
 import json
 import numpy as np
 from copy import deepcopy
+from scipy.spatial.transform import Rotation
 
 import mimicgen
 import mimicgen.utils.pose_utils as PoseUtils
+import robosuite
 
 
 class Waypoint(object):
@@ -346,6 +348,7 @@ class WaypointTrajectory(object):
 
         states = []
         actions = []
+        actions_abs = []
         observations = []
         datagen_infos = []
         success = { k: False for k in env.is_success() } # success metrics
@@ -394,10 +397,36 @@ class WaypointTrajectory(object):
                 # step environment
                 env.step(play_action)
 
+                # compute absolute actions by reading from robot controller
+                d_a = len(env.env.robots[0].action_limits[0])
+                
+                # reshape to handle multi-robot case: (7,) -> (1, 7) or (14,) -> (2, 7)
+                stacked_actions = play_action.reshape(-1, d_a)
+                
+                # extract action remainder (gripper and any additional actions after index 6)
+                action_remainder = stacked_actions[:, 6:]
+                
+                abs_action_components = []
+                for idx, robot in enumerate(env.env.robots):
+                    if robosuite.__version__ < "1.5":
+                        controller = robot.controller
+                        goal_pos = controller.goal_pos
+                        goal_ori = Rotation.from_matrix(controller.goal_ori).as_rotvec()
+                    else:
+                        controller = robot.part_controllers['right']
+                        goal_pos = controller.goal_pos
+                        goal_ori = Rotation.from_matrix(controller.goal_ori).as_rotvec()
+                    
+                    # concatenate pos, ori, and action remainder for this robot
+                    abs_action_components.append(np.concatenate([goal_pos, goal_ori, action_remainder[idx]]))
+                
+                play_action_abs = np.concatenate(abs_action_components)
+
                 # collect data
                 states.append(state)
                 play_action_record = play_action
                 actions.append(play_action_record)
+                actions_abs.append(play_action_abs)
                 observations.append(obs)
                 datagen_infos.append(datagen_info)
 
@@ -410,6 +439,7 @@ class WaypointTrajectory(object):
             observations=observations,
             datagen_infos=datagen_infos,
             actions=np.array(actions),
+            actions_abs=np.array(actions_abs),
             success=bool(success["task"]),
         )
         return results

@@ -229,6 +229,7 @@ def write_demo_to_hdf5(
     observations,
     datagen_info,
     actions,
+    actions_abs=None,
     src_demo_inds=None,
     src_demo_labels=None,
 ):
@@ -244,6 +245,7 @@ def write_demo_to_hdf5(
         observations (list): list of observation dictionaries
         datagen_info (list): list of DatagenInfo instances
         actions (np.array): actions per timestep
+        actions_abs (np.array or None): absolute actions per timestep
         src_demo_inds (list or None): if provided, list of selected source demonstration indices for each subtask
         src_demo_labels (np.array or None): same as @src_demo_inds, but repeated to have a label for each timestep of the trajectory
     """
@@ -262,6 +264,10 @@ def write_demo_to_hdf5(
 
     # write actions
     ep_data_grp.create_dataset("actions", data=np.array(actions))
+    
+    # write absolute actions if provided
+    if actions_abs is not None:
+        ep_data_grp.create_dataset("actions_abs", data=np.array(actions_abs))
 
     # write simulator states
     if isinstance(states[0], dict):

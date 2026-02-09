@@ -347,6 +347,7 @@ def generate_dataset(
                 observations=(generated_traj["observations"] if mg_config.obs.collect_obs else None),
                 datagen_info=generated_traj["datagen_infos"],
                 actions=generated_traj["actions"],
+                actions_abs=generated_traj["actions_abs"],
                 src_demo_inds=generated_traj["src_demo_inds"],
                 src_demo_labels=generated_traj["src_demo_labels"],
             )
@@ -367,6 +368,7 @@ def generate_dataset(
                     observations=(generated_traj["observations"] if mg_config.obs.collect_obs else None),
                     datagen_info=generated_traj["datagen_infos"],
                     actions=generated_traj["actions"],
+                    actions_abs=generated_traj["actions_abs"],
                     src_demo_inds=generated_traj["src_demo_inds"],
                     src_demo_labels=generated_traj["src_demo_labels"],
                 )

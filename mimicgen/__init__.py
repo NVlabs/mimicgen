@@ -11,6 +11,20 @@ except ImportError as e:
     print("WARNING: robosuite environment interfaces not imported...")
     print("Got error: {}".format(e))
 
+try:
+    from mimicgen.env_interfaces.robocasa import *
+except ImportError as e:
+    print("WARNING: robocasa environment interfaces not imported...")
+    print("Got error: {}".format(e))
+
+# import robocasa itself so its task classes (e.g. WashAndReturnPlates) register
+# into robosuite's env registry - robosuite.make() needs this to have run first.
+try:
+    import robocasa  # noqa: F401
+except ImportError as e:
+    print("WARNING: robocasa tasks not imported...")
+    print("Got error: {}".format(e))
+
 # import tasks to make sure they are added to robosuite task registry
 try:
     from mimicgen.envs.robosuite.threading import *

@@ -172,12 +172,14 @@ class MG_EnvInterface(object):
     This method can be left as-is in most cases, as it calls other implemented methods to provide a 
     DatagenInfo object.
     """
-    def get_datagen_info(self, action=None):
+    def get_datagen_info(self, action=None, label=None):
         """
         Get information needed for data generation, at the current
-        timestep of simulation. If @action is provided, it will be used to 
-        compute the target eef pose for the controller, otherwise that 
-        will be excluded.
+        timestep of simulation. If @action is provided, it will be used to
+        compute the target eef pose for the controller, otherwise that
+        will be excluded. @label (per-frame ground-truth subtask name) is
+        unused here - only needed when live state alone can't tell which
+        subtask/arm is active (e.g. bimanual tasks).
 
         Returns:
             datagen_info (DatagenInfo instance)

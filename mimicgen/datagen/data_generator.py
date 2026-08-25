@@ -365,6 +365,14 @@ class DataGenerator(object):
             # the rest of the trajectory (interpolation segment and transformed subtask segment).
             traj_to_execute.pop_first()
 
+            # Ground-truth subtask index, for env_interfaces that need it.
+            if hasattr(env_interface, "_subtask_ind"):
+                env_interface._subtask_ind = subtask_ind
+
+            # Full segment data, for env_interfaces needing more than one arm.
+            if hasattr(env_interface, "_current_src_segment"):
+                env_interface._current_src_segment = (src_ep_datagen_info, selected_src_subtask_inds)
+
             # Execute the trajectory and collect data.
             exec_results = traj_to_execute.execute(
                 env=env,

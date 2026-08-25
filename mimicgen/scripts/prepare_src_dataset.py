@@ -41,6 +41,7 @@ def extract_datagen_info_from_trajectory(
     initial_state,
     states,
     actions,
+    labels=None,
 ):
     """
     Helper function to extract observations, rewards, and dones along a trajectory using
@@ -56,6 +57,9 @@ def extract_datagen_info_from_trajectory(
         states (np.array): array of simulation states to load to extract information
 
         actions (np.array): array of actions
+
+        labels (np.array or None): per-frame ground-truth subtask label, if the source
+            dataset has one (only bimanual interfaces use this)
 
     Returns:
         datagen_infos (dict): the datagen info objects across all timesteps represented as a dictionary of
@@ -75,7 +79,8 @@ def extract_datagen_info_from_trajectory(
         env.reset_to({"states" : states[t]})
 
         # extract datagen info as a dictionary
-        datagen_info = env_interface.get_datagen_info(action=actions[t]).to_dict()
+        label = labels[t] if labels is not None else None
+        datagen_info = env_interface.get_datagen_info(action=actions[t], label=label).to_dict()
         all_datagen_infos.append(datagen_info)
 
     # convert list of dict to dict of list for datagen info dictionaries (for convenient writes to hdf5 dataset)
@@ -184,12 +189,14 @@ def prepare_src_dataset(
 
         # extract datagen info
         actions = ep_grp["actions"][()]
+        labels = ep_grp["subtask_label"][()] if "subtask_label" in ep_grp else None
         datagen_info = extract_datagen_info_from_trajectory(
             env=env,
             env_interface=env_interface,
             initial_state=initial_state,
             states=states,
             actions=actions,
+            labels=labels,
         )
 
         # delete old dategen info if it already exists

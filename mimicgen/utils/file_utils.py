@@ -177,6 +177,9 @@ def parse_source_dataset(
             subtask_term_signals={ k : ep_datagen_info["subtask_term_signals"][k][:] for k in ep_datagen_info["subtask_term_signals"] },
             target_pose=ep_datagen_info["target_pose"][:],
             gripper_action=ep_datagen_info["gripper_action"][:],
+            # bimanual-only, absent for single-arm prepared datasets
+            right_target_pose=ep_datagen_info["right_target_pose"][:] if "right_target_pose" in ep_datagen_info else None,
+            left_target_pose=ep_datagen_info["left_target_pose"][:] if "left_target_pose" in ep_datagen_info else None,
         )
         datagen_infos.append(ep_datagen_info_obj)
 

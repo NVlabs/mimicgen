@@ -21,18 +21,24 @@ class DatagenInfo(object):
         subtask_term_signals=None,
         target_pose=None,
         gripper_action=None,
+        right_target_pose=None,
+        left_target_pose=None,
     ):
         """
         Args:
             eef_pose (np.array or None): robot end effector poses of shape [..., 4, 4]
             object_poses (dict or None): dictionary mapping object name to object poses
                 of shape [..., 4, 4]
-            subtask_term_signals (dict or None): dictionary mapping subtask name to a binary 
+            subtask_term_signals (dict or None): dictionary mapping subtask name to a binary
                 indicator (0 or 1) on whether subtask has been completed. Each value in the
                 dictionary could be an int, float, or np.array of shape [..., 1].
             target_pose (np.array or None): target end effector poses of shape [..., 4, 4]
             gripper_action (np.array or None): gripper actions of shape [..., D] where D
                 is the dimension of the gripper actuation action for the robot arm
+            right_target_pose (np.array or None): bimanual-only, right arm's target eef
+                poses of shape [..., 4, 4], regardless of which arm is "primary"
+            left_target_pose (np.array or None): bimanual-only, left arm's target eef
+                poses of shape [..., 4, 4], regardless of which arm is "primary"
         """
         self.eef_pose = None
         if eef_pose is not None:
@@ -60,6 +66,14 @@ class DatagenInfo(object):
         if gripper_action is not None:
             self.gripper_action = np.array(gripper_action)
 
+        self.right_target_pose = None
+        if right_target_pose is not None:
+            self.right_target_pose = np.array(right_target_pose)
+
+        self.left_target_pose = None
+        if left_target_pose is not None:
+            self.left_target_pose = np.array(left_target_pose)
+
     def to_dict(self):
         """
         Convert this instance to a dictionary containing the same information.
@@ -75,4 +89,8 @@ class DatagenInfo(object):
             ret["target_pose"] = np.array(self.target_pose)
         if self.gripper_action is not None:
             ret["gripper_action"] = np.array(self.gripper_action)
+        if self.right_target_pose is not None:
+            ret["right_target_pose"] = np.array(self.right_target_pose)
+        if self.left_target_pose is not None:
+            ret["left_target_pose"] = np.array(self.left_target_pose)
         return ret

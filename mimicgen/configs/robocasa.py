@@ -80,3 +80,49 @@ class WashAndReturnPlates_Config(MG_Config):
             **common,
         )
         self.task.task_spec.do_not_lock_keys()
+
+
+class AcquireDishBrush_Config(MG_Config):
+    """Pilot: isolated single-subtask config for robocasa AcquireDishBrush -
+    tests whether per-subtask generation avoids the full-chains compounding
+    drift (see scripts/mimicgen_seed)."""
+
+    NAME = "acquire_dish_brush"
+    TYPE = "robosuite"
+
+    def task_config(self):
+        self.task.task_spec.subtask_1 = dict(
+            object_ref="sponge",
+            subtask_term_signal=None,
+            subtask_term_offset_range=None,
+            selection_strategy="random",
+            selection_strategy_kwargs=None,
+            action_noise=0.0,
+            num_interpolation_steps=45,  # measured fresh-reset-to-source gap: 0.71m right, 0.57m left
+            num_fixed_steps=0,
+            apply_noise_during_interpolation=False,
+        )
+        self.task.task_spec.do_not_lock_keys()
+
+
+class OpenWashCabinet_Config(MG_Config):
+    """Isolated single-subtask config for robocasa OpenWashCabinet - positive
+    control for the per-subtask pilot (this subtask already succeeds inside
+    the full chain, so isolation should too; see scripts/mimicgen_seed)."""
+
+    NAME = "open_wash_cabinet"
+    TYPE = "robosuite"
+
+    def task_config(self):
+        self.task.task_spec.subtask_1 = dict(
+            object_ref="cabinet",
+            subtask_term_signal=None,
+            subtask_term_offset_range=None,
+            selection_strategy="random",
+            selection_strategy_kwargs=None,
+            action_noise=0.0,
+            num_interpolation_steps=5,  # measured fresh-reset-to-source gap: <1cm both arms
+            num_fixed_steps=0,
+            apply_noise_during_interpolation=False,
+        )
+        self.task.task_spec.do_not_lock_keys()

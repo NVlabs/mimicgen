@@ -373,6 +373,24 @@ class DataGenerator(object):
             if hasattr(env_interface, "_current_src_segment"):
                 env_interface._current_src_segment = (src_ep_datagen_info, selected_src_subtask_inds)
 
+            # Primary arm's step count for this subtask, for env_interfaces pacing
+            # a second arm's trajectory in proportion to the primary's progress.
+            if hasattr(env_interface, "_primary_traj_len"):
+                env_interface._primary_traj_len = len(traj_to_execute)
+
+            # Primary's own bridge length, so a second arm's bridge can match it -
+            # a mismatched bridge (e.g. secondary hardcoded to 30 while primary
+            # config says 5) desyncs the two arms' real-segment start by the
+            # difference, every single trial.
+            if hasattr(env_interface, "_primary_num_interp_steps"):
+                env_interface._primary_num_interp_steps = self.task_spec[subtask_ind]["num_interpolation_steps"]
+
+            # Same action_noise the primary's own real-segment waypoints get -
+            # a second arm stuck in a whole-body-control local minimum needs
+            # the same perturbation-to-escape mechanism the primary already has.
+            if hasattr(env_interface, "_primary_action_noise"):
+                env_interface._primary_action_noise = self.task_spec[subtask_ind]["action_noise"]
+
             # Execute the trajectory and collect data.
             exec_results = traj_to_execute.execute(
                 env=env,

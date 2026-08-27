@@ -51,7 +51,7 @@
                 "selection_strategy": "random",
                 "selection_strategy_kwargs": null,
                 "action_noise": 0.0,
-                "num_interpolation_steps": 30,
+                "num_interpolation_steps": 45,
                 "num_fixed_steps": 0,
                 "apply_noise_during_interpolation": false
             },
@@ -65,7 +65,7 @@
                 "selection_strategy": "random",
                 "selection_strategy_kwargs": null,
                 "action_noise": 0.0,
-                "num_interpolation_steps": 30,
+                "num_interpolation_steps": 45,
                 "num_fixed_steps": 0,
                 "apply_noise_during_interpolation": false
             },
@@ -79,7 +79,7 @@
                 "selection_strategy": "random",
                 "selection_strategy_kwargs": null,
                 "action_noise": 0.0,
-                "num_interpolation_steps": 30,
+                "num_interpolation_steps": 45,
                 "num_fixed_steps": 0,
                 "apply_noise_during_interpolation": false
             },
@@ -93,7 +93,7 @@
                 "selection_strategy": "random",
                 "selection_strategy_kwargs": null,
                 "action_noise": 0.0,
-                "num_interpolation_steps": 30,
+                "num_interpolation_steps": 45,
                 "num_fixed_steps": 0,
                 "apply_noise_during_interpolation": false
             },
@@ -107,7 +107,7 @@
                 "selection_strategy": "random",
                 "selection_strategy_kwargs": null,
                 "action_noise": 0.0,
-                "num_interpolation_steps": 30,
+                "num_interpolation_steps": 45,
                 "num_fixed_steps": 0,
                 "apply_noise_during_interpolation": false
             },
@@ -121,7 +121,7 @@
                 "selection_strategy": "random",
                 "selection_strategy_kwargs": null,
                 "action_noise": 0.0,
-                "num_interpolation_steps": 30,
+                "num_interpolation_steps": 45,
                 "num_fixed_steps": 0,
                 "apply_noise_during_interpolation": false
             },
@@ -135,7 +135,7 @@
                 "selection_strategy": "random",
                 "selection_strategy_kwargs": null,
                 "action_noise": 0.0,
-                "num_interpolation_steps": 30,
+                "num_interpolation_steps": 45,
                 "num_fixed_steps": 0,
                 "apply_noise_during_interpolation": false
             },
@@ -149,7 +149,7 @@
                 "selection_strategy": "random",
                 "selection_strategy_kwargs": null,
                 "action_noise": 0.0,
-                "num_interpolation_steps": 30,
+                "num_interpolation_steps": 45,
                 "num_fixed_steps": 0,
                 "apply_noise_during_interpolation": false
             },
@@ -160,7 +160,7 @@
                 "selection_strategy": "random",
                 "selection_strategy_kwargs": null,
                 "action_noise": 0.0,
-                "num_interpolation_steps": 30,
+                "num_interpolation_steps": 45,
                 "num_fixed_steps": 0,
                 "apply_noise_during_interpolation": false
             }

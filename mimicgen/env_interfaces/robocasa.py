@@ -53,6 +53,9 @@ class BimanualRobosuiteInterface(RobosuiteInterface):
 
         self._subtask_ind = -1  # set by data_generator.py; -1 means source-demo parsing
         self._current_src_segment = None  # set by data_generator.py; (DatagenInfo, (start, end))
+        self._primary_traj_len = None  # set by data_generator.py; primary arm's step count this subtask
+        self._primary_num_interp_steps = None  # set by data_generator.py; primary's own bridge length this subtask
+        self._primary_action_noise = None  # set by data_generator.py; same action_noise the primary's real segment gets
 
         # Secondary-arm trajectory (BIMANUAL_SUBTASKS), built lazily per subtask.
         self._secondary_traj = None
@@ -130,17 +133,23 @@ class BimanualRobosuiteInterface(RobosuiteInterface):
         return "left" if primary_arm == "right" else "right"
 
     def _delta_action(self, arm: str, target_pose: np.ndarray) -> np.ndarray:
-        """Delta-pose-to-action math against arm's own part controller."""
+        """Delta-pose-to-action math against arm's own part controller. The
+        OSC controller's input_ref_frame is "base" (G2 is mobile, base isn't
+        world-aligned) - deltas must be rotated world->base before clipping,
+        unlike a fixed-base arm where the two frames coincide."""
         target_pos, target_rot = PoseUtils.unmake_pose(target_pose)
         curr_pose = self.get_object_pose(obj_name=self._eef_site(arm), obj_type="site")
         curr_pos, curr_rot = PoseUtils.unmake_pose(curr_pose)
         part = self.env.robots[0].composite_controller.part_controllers[arm]
         max_dpos = part.output_max[0]
         max_drot = part.output_max[3]
-        delta_position = np.clip((target_pos - curr_pos) / max_dpos, -1.0, 1.0)
+        base_rot = part.origin_ori
+        delta_position_world = target_pos - curr_pos
+        delta_position = np.clip(base_rot.T.dot(delta_position_world) / max_dpos, -1.0, 1.0)
         delta_rot_mat = target_rot.dot(curr_rot.T)
         delta_quat = T.mat2quat(delta_rot_mat)
-        delta_rotation = np.clip(T.quat2axisangle(delta_quat) / max_drot, -1.0, 1.0)
+        delta_axisangle_world = T.quat2axisangle(delta_quat)
+        delta_rotation = np.clip(base_rot.T.dot(delta_axisangle_world) / max_drot, -1.0, 1.0)
         return np.concatenate([delta_position, delta_rotation])
 
     def _build_secondary_trajectory(self, subtask_ind: int, secondary_arm: str):
@@ -165,10 +174,14 @@ class BimanualRobosuiteInterface(RobosuiteInterface):
         real_traj = WaypointTrajectory()
         real_traj.add_waypoint_sequence(
             WaypointSequence.from_poses(
-                poses=src_poses, gripper_actions=src_grippers, action_noise=0.0
+                poses=src_poses, gripper_actions=src_grippers,
+                action_noise=self._primary_action_noise or 0.0,
             )
         )
-        traj.merge(real_traj, num_steps_interp=30, num_steps_fixed=0, action_noise=0.0)
+        # Match the primary's own bridge length (not hardcoded) - a mismatch
+        # desyncs the two arms' real-segment start by the difference every trial.
+        bridge_steps = self._primary_num_interp_steps or 30
+        traj.merge(real_traj, num_steps_interp=bridge_steps, num_steps_fixed=0, action_noise=0.0)
         traj.pop_first()
 
         self._secondary_traj = traj
@@ -193,6 +206,13 @@ class BimanualRobosuiteInterface(RobosuiteInterface):
             secondary_arm = self._secondary_arm(arm)
             if self._secondary_traj_subtask_ind != idx:
                 self._build_secondary_trajectory(idx, secondary_arm)
+            # 1 real waypoint per tick, same cadence primary gets from
+            # WaypointTrajectory.execute() - the earlier proportional-frac
+            # pacing could round-skip a waypoint, which cost this arm the
+            # brief handle-catch contact window (measured: left succeeded far
+            # less often than right on the identical delta-action code).
+            # Holds at the final waypoint if this trajectory is shorter than
+            # the primary's - same safe idle-hold semantics used elsewhere.
             step = min(self._secondary_step, len(self._secondary_traj) - 1)
             waypoint = self._secondary_traj[step]
             self._secondary_step += 1
@@ -240,3 +260,33 @@ class WashAndReturnPlatesInterface(BimanualRobosuiteInterface):
             "cabinet": self.get_object_pose(obj_name=f"{self.env.cabinet.name}_main", obj_type="body"),
             "sink": self.get_object_pose(obj_name=f"{self.env.sink.name}_main", obj_type="body"),
         }
+
+
+class AcquireDishBrushInterface(BimanualRobosuiteInterface):
+    """Pilot: isolated single-subtask generation for the standalone
+    AcquireDishBrush task (scripts/mimicgen_seed/demo_0_AcquireDishBrush.hdf5).
+    Tests whether splitting generation per-subtask avoids the full-chains
+    compounding drift (only subtask 1 succeeds there)."""
+
+    SUBTASK_ORDER = ("2_acquire_sponge",)
+    SUBTASK_PRIMARY_ARM = {"2_acquire_sponge": "right"}  # INFERRED: sponge held by RIGHT in wash_plate_1
+    BIMANUAL_SUBTASKS = ()
+
+    def get_object_poses(self) -> dict:
+        """1 object ref: sponge."""
+        return {"sponge": self.get_object_pose(obj_name=f"{SPONGE_NAME}_main", obj_type="body")}
+
+
+class OpenWashCabinetInterface(BimanualRobosuiteInterface):
+    """Isolated single-subtask generation for the standalone OpenWashCabinet
+    task (scripts/mimicgen_seed/demo_0_OpenWashCabinet.hdf5). Bimanual -
+    single arm produces zero door motion on this cabinet, confirmed
+    empirically (see wash_and_return_plates.py)."""
+
+    SUBTASK_ORDER = ("1_open_cabinet",)
+    SUBTASK_PRIMARY_ARM = {"1_open_cabinet": "right"}
+    BIMANUAL_SUBTASKS = ("1_open_cabinet",)
+
+    def get_object_poses(self) -> dict:
+        """1 object ref: cabinet."""
+        return {"cabinet": self.get_object_pose(obj_name=f"{self.env.cabinet.name}_main", obj_type="body")}

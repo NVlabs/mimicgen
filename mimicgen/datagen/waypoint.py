@@ -208,7 +208,7 @@ class WaypointTrajectory(object):
             # repeat the target @num_steps times
             assert num_steps is not None
             poses = np.array([pose for _ in range(num_steps)])
-            gripper_actions = np.array([[gripper] for _ in range(num_steps)])
+            gripper_actions = np.array([gripper_action for _ in range(num_steps)])
         else:
             # linearly interpolate between the last pose and the new waypoint
             last_waypoint = self.last_waypoint

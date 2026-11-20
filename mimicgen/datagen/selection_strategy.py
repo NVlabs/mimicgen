@@ -41,7 +41,7 @@ def assert_selection_strategy_exists(name):
     Allow easy way to check if selection strategy exists.
     """
     if name not in REGISTERED_SELECTION_STRATEGIES:
-        raise Exception("assert_selection_strategy_exists: name {} not found. Make sure it is a registered selection strategy among {}".format(", ".join(REGISTERED_SELECTION_STRATEGIES)))
+        raise Exception("assert_selection_strategy_exists: name {} not found. Make sure it is a registered selection strategy among {}".format(name, ", ".join(REGISTERED_SELECTION_STRATEGIES)))
 
 
 class MG_SelectionStrategyMeta(type):
